@@ -1,0 +1,180 @@
+// -------- imports --------
+@import 'fonts';
+@import 'components/_fonts';
+@import 'components/_normalize.scss';
+@import 'components/_mixins.scss';
+@import 'components/_variables.scss';
+@import 'components/_variables.scss';
+@import 'components/_header.scss';
+@import 'components/_footer.scss';
+@import 'components/_ui.scss';
+@import 'components/modal-booking';
+@import 'components/modal-success';
+@import 'components/support';
+@import 'pages/index/_main.scss';
+@import 'pages/index/_about.scss';
+@import 'pages/index/_treatment.scss';
+@import 'pages/index/_how.scss';
+@import 'pages/about_page.scss';
+@import 'pages/rooms/_content';
+@import 'pages/rooms/_info';
+
+@import '../../node_modules/swiper/swiper.scss';
+@import 'components/flatpicker';
+@import 'components/custom-flatpicker';
+@import '../../node_modules/choices.js/src/styles/choices.scss';
+
+::selection {
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+
+  &.lock {
+    overflow: hidden;
+  }
+}
+
+.container {
+  max-width: 1610px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.wrapper {
+  min-height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1 1 auto;
+}
+
+._sitemap {
+  height: 100vh;
+  padding: 50px 0;
+  background-color: rgb(58, 58, 58);
+
+  &-con {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 15px;
+
+    @media (max-width: 767px) {
+      padding: 0 50px;
+    }
+  }
+  &-body {
+    ol {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      li {
+        font-size: 30px;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #fff;
+
+        @media (max-width: 767px) {
+          font-size: 22px;
+        }
+
+        &:not(:first-child) {
+          margin: 15px 0 0;
+        }
+      }
+    }
+
+    &__item {
+      color: #fff;
+      transition: all 0.3s;
+
+      &:hover {
+        color: rgb(179, 203, 255);
+      }
+    }
+  }
+}
+
+.notfound {
+  margin: 140px 0 0;
+
+  @media (max-width: 767px) {
+    margin: 62px 0 0;
+  }
+
+  &__top {
+    position: absolute;
+    top: 0;
+    width: 578px;
+    height: 578px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ffffff;
+    border-radius: 50%;
+    background-color: #ffffff;
+    border: 61px solid #4293fb;
+
+    font-family: 'Roboto Slab';
+    font-weight: 500;
+    font-size: 96px;
+    line-height: 55px;
+    text-align: center;
+    color: #4293fb;
+
+    padding: 0 14px 30px 0;
+
+    @media (max-width: 767px) {
+      width: 225px;
+      height: 225px;
+      border: 35px solid #4293fb;
+      font-size: 48px;
+      line-height: 55px;
+      padding: 0 0px 30px 0;
+    }
+  }
+
+  &__bottom {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+    padding: 0 0 202px;
+
+    width: 578px;
+    height: 730px;
+    font-family: 'Roboto Slab';
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 55px;
+    text-align: center;
+    color: #ffffff;
+
+    background: #4293fb;
+    border-radius: 0 0 11px 11px;
+
+    @media (max-width: 767px) {
+      width: 225px;
+      height: 284px;
+      padding: 0 0 70px;
+
+      font-size: 24px;
+      line-height: 31px;
+    }
+  }
+
+  &-body {
+    padding: 275px 0 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    @media (max-width: 767px) {
+      padding: 107px 0 0;
+    }
+  }
+}

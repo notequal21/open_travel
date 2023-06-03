@@ -1,0 +1,20 @@
+import * as functions from './modules/functions.js';
+import * as sliders from './modules/sliders.js';
+
+functions.burger();
+functions.anchors();
+functions.openMoreMobile();
+functions.upBtn();
+functions.homepageMainDataPicker();
+functions.homepageMainRoomPicker();
+functions.homepageMainGuestPicker();
+functions.modalRoomPicker();
+functions.modalGuestPicker();
+functions.modal();
+functions.supportMain();
+functions.supportDataPicker();
+functions.supportGuestPicker();
+functions.supportRooms();
+sliders.homepageAboutInfoSlider();
+sliders.homepageAboutServicesSlider();
+sliders.roomsItemSlider();

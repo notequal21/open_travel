@@ -1,0 +1,203 @@
+.flatpickr-input.active {
+  border: 1px solid #4293fb;
+}
+
+.flatpickr-calendar.open,
+.flatpickr-calendar.inline {
+  display: flex;
+  flex-direction: column;
+}
+
+.flatpickr-months {
+  justify-content: space-between;
+  padding: 23px 8px 0;
+
+  .flatpickr-month {
+    flex: 0 0 calc(50% - 10px);
+    height: 31px;
+
+    @media (max-width: 767px) {
+      flex: 0 0 100%;
+    }
+  }
+
+  .flatpickr-next-month {
+    top: 16px;
+    right: 20px !important;
+  }
+}
+
+.flatpickr-confirm {
+  cursor: pointer;
+  margin: 17px 10px 20px 0;
+  align-self: flex-end;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  background: #4293fb;
+  height: 56px;
+
+  font-size: 0;
+
+  @media (max-width: 767px) {
+    width: calc(100% - 20px);
+    margin: 17px 10px 20px;
+  }
+
+  &::after {
+    content: 'выбрать';
+    display: block;
+    font-family: 'Lato';
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    text-transform: uppercase;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    color: #ffffff;
+  }
+
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: #1e77ea;
+  }
+
+  svg {
+    display: none;
+  }
+}
+
+.flatpickr-weekdaycontainer {
+  .flatpickr-weekday {
+    font-family: 'Lato';
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 24px;
+    color: #494545;
+    text-transform: lowercase;
+  }
+}
+.flatpickr-current-month {
+  height: 31px;
+  padding: 0;
+  width: 100%;
+  left: 0;
+  text-align: left;
+
+  font-family: 'Lato' !important;
+  font-weight: 400 !important;
+  font-size: 20px !important;
+  line-height: 31px !important;
+  color: #494545 !important;
+
+  .cur-month {
+    margin: 0 0 0 7px;
+
+    font-family: 'Lato' !important;
+    font-weight: 400 !important;
+    font-size: 20px !important;
+    line-height: 31px !important;
+    color: #494545 !important;
+  }
+
+  .numInputWrapper {
+    width: auto;
+  }
+
+  .cur-year {
+    font-family: 'Lato' !important;
+    font-weight: 400 !important;
+    font-size: 20px !important;
+    line-height: 31px !important;
+    color: #494545 !important;
+  }
+}
+
+.flatpickr-innerContainer {
+  margin: 24px 0 0;
+  padding: 0 8px 20px;
+  width: 100%;
+  border-bottom: 1px solid #c3d3e9;
+
+  .flatpickr-rContainer,
+  .flatpickr-days,
+  .dayContainer {
+    min-width: auto !important;
+    max-width: auto !important;
+    width: 100% !important;
+  }
+
+  .dayContainer {
+    flex: 0 0 calc(50% - 10px);
+    box-shadow: none;
+
+    @media (max-width: 767px) {
+      flex: 0 0 100%;
+    }
+
+    &:not(:first-child) {
+      margin: 0 0 0 20px;
+    }
+  }
+
+  .flatpickr-weekdaycontainer {
+    flex: 0 0 calc(50% - 10px);
+
+    @media (max-width: 767px) {
+      flex: 0 0 100%;
+    }
+
+    &:not(:first-child) {
+      margin: 0 0 0 20px;
+    }
+  }
+
+  .flatpickr-day {
+    font-family: 'Lato';
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 32px;
+    height: 32px;
+    margin: 0;
+
+    &.flatpickr-disabled {
+      color: #c3d3e9;
+    }
+    &.today {
+      border: none;
+      color: #4293fb;
+    }
+    &.selected {
+      background: #4293fb;
+      border: none;
+      box-shadow: none !important;
+    }
+    &.startRange {
+      background: #4293fb;
+      border: none;
+      box-shadow: none !important;
+    }
+    &.endRange {
+      background: #4293fb;
+      border: none;
+      box-shadow: none !important;
+    }
+
+    &.inRange {
+      box-shadow: none !important;
+      border: none;
+      background: #4293fb;
+      color: #ffffff;
+    }
+  }
+}
+
+.flatpickr-calendar {
+  width: 580px !important;
+
+  @media (max-width: 767px) {
+    width: 305px !important;
+  }
+}

@@ -1,0 +1,69 @@
+<main class="main">
+  <div class="container">
+    <div class="main-body">
+      <div class="main-body__img">
+        <div class="main-body__img-text">
+          «Машук <br> Аква-Терм» санаторий
+        </div>
+        <div class="main-body__img-btn btn modal_booking-btn">
+          БРОНИРОВАТЬ
+        </div>
+        <img src="./img/index/main/bg.jpg" srcset="./img/index/main/bg.jpg 1x, ./img/index/main/bg@2x.jpg 2x" alt="">
+      </div>
+      <div class="main-booking">
+        <div class="flatpickr main-booking__item main-booking__item_input _nopadding" id="homepage-main-datapicker">
+          <input placeholder="Заезд - Выезд" data-input />
+          <a class="input-button" title="clear" data-clear>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 6L6 18" stroke="#4293FB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M6 6L18 18" stroke="#4293FB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
+        </div>
+        <div class="main-booking__item">
+          <input id="homepage-main-guestpicker-btn" placeholder="Гости" class="main-booking__item_input"></input>
+          <a id="homepage-guestpicker-btn-clear" class="input-button" title="clear">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 6L6 18" stroke="#4293FB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M6 6L18 18" stroke="#4293FB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
+
+          <div id="homepage-main-guestpicker-item" class="main-booking__item-guest main-guestpicker">
+            <div class="main-guestpicker__content">
+              <div class="main-guestpicker__content-col">
+                <div class="main-guestpicker__content-adult">
+                  <span class="_title">Взрослых</span>
+
+                  <div id="main-guestpicker-value" class="main-guestpicker__content-value">
+                    <span class="_minus"></span>
+                    <input type="number" value="2">
+                    <span class="_plus"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="main-guestpicker__content-col">
+                <div class="main-guestpicker__content-childs">
+                </div>
+                <div class="main-guestpicker__content-add btn btn_border">Добавить ребенка</div>
+              </div>
+            </div>
+            <div class="main-guestpicker__bottom">
+              <div id="guest-picker-confirm" class="main-guestpicker__btn btn">выбрать</div>
+            </div>
+          </div>
+        </div>
+        <select class="main-booking__item main-booking__item_select">
+          <option value="">Выбрать номер</option>
+          <option value="1">Не определился</option>
+          <option value="2">Double 1-местный</option>
+          <option value="3">Double plus 2-местный</option>
+          <option value="4">Double plus 3-местный</option>
+        </select>
+        <div class="main-booking__item main-booking__item_btn btn">
+          БРОНИРОВАТЬ
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
