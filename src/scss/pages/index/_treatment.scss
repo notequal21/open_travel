@@ -11,8 +11,12 @@
 
     @media (max-width: 991px) {
       &.open {
-        .treatment-body__text {
-          display: unset;
+        ._ellipsed {
+          display: none;
+        }
+
+        p {
+          display: block;
         }
         .treatment-body__more {
           svg {
@@ -28,13 +32,24 @@
     &__text {
       margin: 90px 0 0;
 
+      ._ellipsed {
+        display: none;
+      }
+
       @media (max-width: 991px) {
         margin: 40px 0 0;
 
-        display: -webkit-box;
-        -webkit-line-clamp: 16;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
+        ._ellipsed {
+          display: block;
+
+          p {
+            display: block;
+          }
+        }
+
+        p {
+          display: none;
+        }
       }
 
       p {

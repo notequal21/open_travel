@@ -44,9 +44,14 @@
         flex-direction: column;
 
         &.open {
-          .about-body__description {
-            display: unset;
+          ._ellipsed {
+            display: none;
           }
+
+          p {
+            display: block;
+          }
+
           .about-body__more {
             svg {
               transform: scale(1);
@@ -78,11 +83,6 @@
 
       @media (max-width: 991px) {
         margin: 40px 0 0;
-
-        display: -webkit-box;
-        -webkit-line-clamp: 16;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
       }
 
       p {
@@ -95,6 +95,26 @@
 
   &-body {
     position: relative;
+
+    ._ellipsed {
+      display: none;
+    }
+
+    @media (max-width: 991px) {
+      margin: 40px 0 0;
+
+      ._ellipsed {
+        display: block;
+
+        p {
+          display: block;
+        }
+      }
+
+      p {
+        display: none;
+      }
+    }
 
     .support {
       top: 45px;
