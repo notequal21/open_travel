@@ -1,0 +1,101 @@
+<div class="modal modal_booking_withdata">
+  <div class="modal__bg"></div>
+
+  <div class="modal-body">
+    <div class="modal-body__close">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 6L6 18" stroke="#4293FB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M6 6L18 18" stroke="#4293FB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </div>
+
+    <div class="modal-body__title">
+      Предварительная заявка на бронь
+    </div>
+    <form class="modal-body__form">
+      <label class="modal-body__form-item">
+        <select class="modal-booking__item_select_withdata">
+          <option value="">Выбрать номер</option>
+          <option value="1">Не определился</option>
+          <option value="2">Double 1-местный</option>
+          <option value="3">Double plus 2-местный</option>
+          <option value="4">Double plus 3-местный</option>
+        </select>
+      </label>
+      <label class="modal-body__form-item">
+        <input type="text" placeholder="Ваше ФИО">
+      </label>
+      <label class="modal-body__form-item">
+        <div class="flatpickr main-booking__item main-booking__item_input _nopadding" id="homepage-main-datapicker">
+          <input placeholder="Заезд - Выезд" data-input />
+          <a class="input-button" title="clear" data-clear>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 6L6 18" stroke="#4293FB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M6 6L18 18" stroke="#4293FB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
+        </div>
+        <!-- <input id="homepage-main-datapicker" placeholder="Заезд - Выезд"
+          class="main-booking__item main-booking__item_input" /> -->
+      </label>
+      <label class="modal-body__form-item">
+        <input type="text" placeholder="Телефон">
+      </label>
+      <div class="modal-body__form-item">
+        <input readonly="readonly" id="modal-guestpicker-item-withdata-btn" placeholder="Гости"
+          class="main-booking__item_input"></input>
+
+        <a id="modal-guestpicker-item-withdata-btn-clear" class="input-button" title="clear">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 6L6 18" stroke="#4293FB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M6 6L18 18" stroke="#4293FB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+
+        <div id="modal-guestpicker-item-withdata" class="modal-body__form-guest modal-guestpicker">
+          <div class="modal-guestpicker__content">
+            <div class="modal-guestpicker__content-col">
+              <div class="modal-guestpicker__content-adult">
+                <span class="_title">Взрослых</span>
+
+                <div id="modal-guestpicker-item-withdata-value" class="modal-guestpicker__content-value">
+                  <span class="_minus"></span>
+                  <input type="number" value="2">
+                  <span class="_plus"></span>
+                </div>
+              </div>
+            </div>
+            <div class="modal-guestpicker__content-col">
+              <div class="modal-guestpicker__content-childs">
+              </div>
+              <div class="modal-guestpicker__content-add btn btn_border">Добавить ребенка</div>
+            </div>
+          </div>
+          <div class="modal-guestpicker__bottom">
+            <div id="guest-picker-confirm" class="modal-guestpicker__btn btn">выбрать</div>
+          </div>
+        </div>
+      </div>
+      <label class="modal-body__form-item">
+        <input type="text" placeholder="E-mail">
+      </label>
+      <label class="modal-body__form-item modal-body__form-item_big">
+        <textarea placeholder="Комментарий к заявке"></textarea>
+      </label>
+
+      <div class="modal-body__form-apply apply-policy">
+        <label class="apply-policy__switcher">
+          <input type="checkbox">
+
+          <span></span>
+
+          Я согласен на обработку персональных данных
+        </label>
+      </div>
+
+      <button class="modal-body__form-submit btn">
+        Отправить
+      </button>
+    </form>
+  </div>
+</div>

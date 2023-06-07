@@ -13,9 +13,11 @@
 
   &.active {
     box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
+    width: 780px;
     max-width: 780px;
 
-    @media (max-width: 991px) {
+    @media (max-width: 767px) {
+      width: 100%;
       max-width: 400px;
     }
 
@@ -206,6 +208,10 @@
         padding: 10px 15px 0;
       }
 
+      &._hidden {
+        display: none;
+      }
+
       &-item {
         display: flex;
         align-items: center;
@@ -276,8 +282,18 @@
     }
 
     ._message {
+      display: none;
+
+      &._sent {
+        display: block;
+      }
+
       &:not(:first-child) {
         margin: 44px 0 0;
+      }
+
+      &:nth-child(2) {
+        margin: 0;
       }
 
       &_bot {
@@ -372,6 +388,10 @@
         }
         .main-guestpicker__bottom {
           margin: 24px 0 0;
+
+          &._hidden {
+            display: none;
+          }
 
           @media (max-width: 991px) {
             padding: 27px 0 0;

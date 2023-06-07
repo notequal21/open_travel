@@ -106,12 +106,12 @@
       ._ellipsed {
         display: block;
 
-        p {
+        & > p {
           display: block;
         }
       }
 
-      p {
+      & > p {
         display: none;
       }
     }

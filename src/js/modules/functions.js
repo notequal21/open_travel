@@ -166,9 +166,142 @@ export const homepageMainDataPicker = () => {
   }
 };
 
-export const supportDataPicker = () => {
-  if (document.querySelector('#support-datapicker')) {
+// export const supportDataPicker = () => {
+//   if (document.querySelector('#support-datapicker')) {
+//     const isMobie = window.innerWidth < 767;
+
+//     flatpickr('#support-datapicker', {
+//       mode: 'range',
+//       showMonths: isMobie ? 1 : 2,
+//       minDate: Date.now(),
+//       locale: Russian,
+//       inline: true,
+//     });
+//   }
+// };
+
+export const homepageSupportChat = () => {
+  if (document.querySelector('.support_main')) {
+    let step = 0;
+    const support = document.querySelector('.support_main');
+    const supportPhonePicked = support.querySelector('#support-phone-input');
+    const supportNamePicked = support.querySelector('#support-name-input');
+    const supportGuestPicked = support.querySelector(
+      '#support-guest-container-picked'
+    );
+    const supportScroller = support.querySelector(
+      '.support-content__container'
+    );
+    const supportDatePicked = support.querySelector(
+      '#support-date-container-picked'
+    );
+    const supportSend = support.querySelector('.support-content__send');
+    const supportSendForm = supportSend.querySelector('form');
+    const supportMessages = support.querySelectorAll('._message');
     const isMobie = window.innerWidth < 767;
+
+    const picker = document.querySelector('#support-guestpicker-item');
+    const pickerBottom = picker.querySelector('.main-guestpicker__bottom');
+    const pickerAdult = picker.querySelector('#support-guestpicker-value');
+    const adultInput = pickerAdult.querySelector('input');
+    let guestCount = 0;
+
+    const addChild = (age) => {
+      const childElement = document.createElement('div');
+      childElement.classList.add('child');
+
+      const childName = document.createElement('div');
+      childName.classList.add('child-name');
+      childName.innerText = 'Ребенок';
+
+      const childAge = document.createElement('div');
+      childAge.classList.add('child-age');
+      childAge.innerText = age;
+
+      const childBtn = document.createElement('div');
+      childBtn.classList.add('child-btn');
+
+      childBtn.addEventListener('click', () => {
+        childElement.remove();
+      });
+
+      childElement.append(childName, childAge, childBtn);
+
+      const childsContainer = picker.querySelector(
+        '.main-guestpicker__content-childs'
+      );
+      childsContainer.append(childElement);
+    };
+
+    const selectChildAge = (position) => {
+      const container = document.createElement('div');
+      container.classList.add('main-guestpicker__content-age');
+
+      const containerTitle = document.createElement('span');
+      containerTitle.classList.add('_title');
+      containerTitle.innerText = 'Укажите возраст ребенка';
+
+      const containerAges = document.createElement('div');
+      containerAges.classList.add('_ages');
+
+      for (let index = 0; index < 14; index++) {
+        const containerAgesItem = document.createElement('span');
+        containerAgesItem.innerText = index + 1;
+        containerAges.append(containerAgesItem);
+
+        containerAgesItem.addEventListener('click', (event) => {
+          const { target } = event;
+
+          addChild(target.innerText);
+          container.remove();
+        });
+      }
+
+      container.append(containerTitle, containerAges);
+      position.insertAdjacentElement('afterend', container);
+    };
+
+    picker.addEventListener('click', (event) => {
+      const { target } = event;
+
+      if (target.closest('.main-guestpicker__content-add')) {
+        if (!picker.querySelector('.main-guestpicker__content-age')) {
+          selectChildAge(target.closest('.main-guestpicker__content-add'));
+          pickerBottom.classList.remove('_hidden');
+        }
+      } else if (target.closest('#guest-picker-confirm')) {
+        const childCount = picker.querySelectorAll('.child');
+        guestCount = +adultInput.value + +childCount.length;
+        pickerBottom.classList.add('_hidden');
+
+        if (step <= 3) {
+          nextStep();
+        }
+
+        if (guestCount === 1) {
+          supportGuestPicked.innerText = `${guestCount} Гость`;
+        } else if (guestCount <= 4) {
+          supportGuestPicked.innerText = `${guestCount} Гостя`;
+        } else if (guestCount > 4) {
+          supportGuestPicked.innerText = `${guestCount} Гостей`;
+        }
+      }
+    });
+    pickerAdult.addEventListener('click', (event) => {
+      const { target } = event;
+
+      pickerBottom.classList.remove('_hidden');
+
+      if (target.closest('._minus') && adultInput.value > 1) {
+        adultInput.value--;
+      } else if (target.closest('._plus')) {
+        adultInput.value++;
+      }
+    });
+
+    setTimeout(() => {
+      nextStep();
+    }, 1000);
 
     flatpickr('#support-datapicker', {
       mode: 'range',
@@ -177,8 +310,422 @@ export const supportDataPicker = () => {
       locale: Russian,
       inline: true,
 
-      plugins: [new confirmDatePlugin({})],
+      onValueUpdate: function (selectedDates, dateStr, instance) {
+        if (selectedDates.length === 2) {
+          supportDatePicked.innerText = dateStr;
+          if (step <= 1) {
+            nextStep();
+          }
+        }
+      },
     });
+
+    supportSendForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const { target } = event;
+
+      if (step === 5) {
+        supportPhonePicked.innerText = target.querySelector('input').value;
+      }
+      if (step === 7) {
+        supportNamePicked.innerText = target.querySelector('input').value;
+      }
+
+      nextStep();
+      target.querySelector('input').value = '';
+    });
+
+    const nextStep = (num) => {
+      if (step === 0) {
+        supportMessages.forEach((item) => {
+          item.classList.remove('_sent');
+        });
+        step++;
+        supportMessages[step].classList.add('_sent');
+      } else {
+        step++;
+        supportMessages[step].classList.add('_sent');
+
+        if (step >= 5 && step < 9) {
+          supportSend.classList.remove('_hidden');
+        }
+        if (step === 9) {
+          supportSend.classList.add('_hidden');
+        }
+      }
+
+      if (step % 2 === 0 && step > 0 && step < 9) {
+        setTimeout(nextStep, 1000);
+      }
+
+      supportScroller.scrollTo({ top: 1000000, behavior: 'smooth' });
+    };
+  }
+};
+
+export const roomsSupportChat = () => {
+  if (document.querySelector('.support_rooms')) {
+    let step = 0;
+    const support = document.querySelector('.support_rooms');
+    const supportPhonePicked = support.querySelector('#support-phone-input');
+    const supportNamePicked = support.querySelector('#support-name-input');
+    const supportGuestPicked = support.querySelector(
+      '#support-guest-container-picked'
+    );
+    const supportScroller = support.querySelector(
+      '.support-content__container'
+    );
+    const supportDatePicked = support.querySelector(
+      '#support-date-container-picked'
+    );
+    const supportSend = support.querySelector('.support-content__send');
+    const supportSendForm = supportSend.querySelector('form');
+    const supportMessages = support.querySelectorAll('._message');
+    const isMobie = window.innerWidth < 767;
+
+    const picker = document.querySelector('#support-guestpicker-item-rooms');
+    const pickerBottom = picker.querySelector('.main-guestpicker__bottom');
+    const pickerAdult = picker.querySelector('#support-guestpicker-value');
+    const adultInput = pickerAdult.querySelector('input');
+    let guestCount = 0;
+
+    const addChild = (age) => {
+      const childElement = document.createElement('div');
+      childElement.classList.add('child');
+
+      const childName = document.createElement('div');
+      childName.classList.add('child-name');
+      childName.innerText = 'Ребенок';
+
+      const childAge = document.createElement('div');
+      childAge.classList.add('child-age');
+      childAge.innerText = age;
+
+      const childBtn = document.createElement('div');
+      childBtn.classList.add('child-btn');
+
+      childBtn.addEventListener('click', () => {
+        childElement.remove();
+      });
+
+      childElement.append(childName, childAge, childBtn);
+
+      const childsContainer = picker.querySelector(
+        '.main-guestpicker__content-childs'
+      );
+      childsContainer.append(childElement);
+    };
+
+    const selectChildAge = (position) => {
+      const container = document.createElement('div');
+      container.classList.add('main-guestpicker__content-age');
+
+      const containerTitle = document.createElement('span');
+      containerTitle.classList.add('_title');
+      containerTitle.innerText = 'Укажите возраст ребенка';
+
+      const containerAges = document.createElement('div');
+      containerAges.classList.add('_ages');
+
+      for (let index = 0; index < 14; index++) {
+        const containerAgesItem = document.createElement('span');
+        containerAgesItem.innerText = index + 1;
+        containerAges.append(containerAgesItem);
+
+        containerAgesItem.addEventListener('click', (event) => {
+          const { target } = event;
+
+          addChild(target.innerText);
+          container.remove();
+        });
+      }
+
+      container.append(containerTitle, containerAges);
+      position.insertAdjacentElement('afterend', container);
+    };
+
+    picker.addEventListener('click', (event) => {
+      const { target } = event;
+
+      if (target.closest('.main-guestpicker__content-add')) {
+        if (!picker.querySelector('.main-guestpicker__content-age')) {
+          selectChildAge(target.closest('.main-guestpicker__content-add'));
+          pickerBottom.classList.remove('_hidden');
+        }
+      } else if (target.closest('#guest-picker-confirm')) {
+        const childCount = picker.querySelectorAll('.child');
+        guestCount = +adultInput.value + +childCount.length;
+        pickerBottom.classList.add('_hidden');
+
+        if (step <= 3) {
+          nextStep();
+        }
+
+        if (guestCount === 1) {
+          supportGuestPicked.innerText = `${guestCount} Гость`;
+        } else if (guestCount <= 4) {
+          supportGuestPicked.innerText = `${guestCount} Гостя`;
+        } else if (guestCount > 4) {
+          supportGuestPicked.innerText = `${guestCount} Гостей`;
+        }
+      }
+    });
+    pickerAdult.addEventListener('click', (event) => {
+      const { target } = event;
+
+      pickerBottom.classList.remove('_hidden');
+
+      if (target.closest('._minus') && adultInput.value > 1) {
+        adultInput.value--;
+      } else if (target.closest('._plus')) {
+        adultInput.value++;
+      }
+    });
+
+    setTimeout(() => {
+      nextStep();
+    }, 1000);
+
+    flatpickr('#support-datapicker', {
+      mode: 'range',
+      showMonths: isMobie ? 1 : 2,
+      minDate: Date.now(),
+      locale: Russian,
+      inline: true,
+
+      onValueUpdate: function (selectedDates, dateStr, instance) {
+        if (selectedDates.length === 2) {
+          supportDatePicked.innerText = dateStr;
+          if (step <= 1) {
+            nextStep();
+          }
+        }
+      },
+    });
+
+    supportSendForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const { target } = event;
+
+      if (step === 5) {
+        supportPhonePicked.innerText = target.querySelector('input').value;
+      }
+      if (step === 7) {
+        supportNamePicked.innerText = target.querySelector('input').value;
+      }
+
+      nextStep();
+      target.querySelector('input').value = '';
+    });
+
+    const nextStep = (num) => {
+      if (step === 0) {
+        supportMessages.forEach((item) => {
+          item.classList.remove('_sent');
+        });
+        step++;
+        supportMessages[step].classList.add('_sent');
+      } else {
+        step++;
+        supportMessages[step].classList.add('_sent');
+
+        if (step >= 5 && step < 9) {
+          supportSend.classList.remove('_hidden');
+        }
+        if (step === 9) {
+          supportSend.classList.add('_hidden');
+        }
+      }
+
+      if (step % 2 === 0 && step > 0 && step < 9) {
+        setTimeout(nextStep, 1000);
+      }
+
+      supportScroller.scrollTo({ top: 1000000, behavior: 'smooth' });
+    };
+  }
+};
+
+export const mobileSupportChat = () => {
+  if (document.querySelector('.support_mobile')) {
+    let step = 0;
+    const support = document.querySelector('.support_mobile');
+    const supportPhonePicked = support.querySelector('#support-phone-input');
+    const supportNamePicked = support.querySelector('#support-name-input');
+    const supportGuestPicked = support.querySelector(
+      '#support-guest-container-picked'
+    );
+    const supportScroller = support.querySelector(
+      '.support-content__container'
+    );
+    const supportDatePicked = support.querySelector(
+      '#support-date-container-picked'
+    );
+    const supportSend = support.querySelector('.support-content__send');
+    const supportSendForm = supportSend.querySelector('form');
+    const supportMessages = support.querySelectorAll('._message');
+    const isMobie = window.innerWidth < 767;
+
+    const picker = document.querySelector('#support-guestpicker-item-rooms');
+    const pickerBottom = picker.querySelector('.main-guestpicker__bottom');
+    const pickerAdult = picker.querySelector('#support-guestpicker-value');
+    const adultInput = pickerAdult.querySelector('input');
+    let guestCount = 0;
+
+    const addChild = (age) => {
+      const childElement = document.createElement('div');
+      childElement.classList.add('child');
+
+      const childName = document.createElement('div');
+      childName.classList.add('child-name');
+      childName.innerText = 'Ребенок';
+
+      const childAge = document.createElement('div');
+      childAge.classList.add('child-age');
+      childAge.innerText = age;
+
+      const childBtn = document.createElement('div');
+      childBtn.classList.add('child-btn');
+
+      childBtn.addEventListener('click', () => {
+        childElement.remove();
+      });
+
+      childElement.append(childName, childAge, childBtn);
+
+      const childsContainer = picker.querySelector(
+        '.main-guestpicker__content-childs'
+      );
+      childsContainer.append(childElement);
+    };
+
+    const selectChildAge = (position) => {
+      const container = document.createElement('div');
+      container.classList.add('main-guestpicker__content-age');
+
+      const containerTitle = document.createElement('span');
+      containerTitle.classList.add('_title');
+      containerTitle.innerText = 'Укажите возраст ребенка';
+
+      const containerAges = document.createElement('div');
+      containerAges.classList.add('_ages');
+
+      for (let index = 0; index < 14; index++) {
+        const containerAgesItem = document.createElement('span');
+        containerAgesItem.innerText = index + 1;
+        containerAges.append(containerAgesItem);
+
+        containerAgesItem.addEventListener('click', (event) => {
+          const { target } = event;
+
+          addChild(target.innerText);
+          container.remove();
+        });
+      }
+
+      container.append(containerTitle, containerAges);
+      position.insertAdjacentElement('afterend', container);
+    };
+
+    picker.addEventListener('click', (event) => {
+      const { target } = event;
+
+      if (target.closest('.main-guestpicker__content-add')) {
+        if (!picker.querySelector('.main-guestpicker__content-age')) {
+          selectChildAge(target.closest('.main-guestpicker__content-add'));
+          pickerBottom.classList.remove('_hidden');
+        }
+      } else if (target.closest('#guest-picker-confirm')) {
+        const childCount = picker.querySelectorAll('.child');
+        guestCount = +adultInput.value + +childCount.length;
+        pickerBottom.classList.add('_hidden');
+
+        if (step <= 3) {
+          nextStep();
+        }
+
+        if (guestCount === 1) {
+          supportGuestPicked.innerText = `${guestCount} Гость`;
+        } else if (guestCount <= 4) {
+          supportGuestPicked.innerText = `${guestCount} Гостя`;
+        } else if (guestCount > 4) {
+          supportGuestPicked.innerText = `${guestCount} Гостей`;
+        }
+      }
+    });
+    pickerAdult.addEventListener('click', (event) => {
+      const { target } = event;
+
+      pickerBottom.classList.remove('_hidden');
+
+      if (target.closest('._minus') && adultInput.value > 1) {
+        adultInput.value--;
+      } else if (target.closest('._plus')) {
+        adultInput.value++;
+      }
+    });
+
+    setTimeout(() => {
+      nextStep();
+    }, 1000);
+
+    flatpickr('#support-datapicker', {
+      mode: 'range',
+      showMonths: isMobie ? 1 : 2,
+      minDate: Date.now(),
+      locale: Russian,
+      inline: true,
+
+      onValueUpdate: function (selectedDates, dateStr, instance) {
+        if (selectedDates.length === 2) {
+          supportDatePicked.innerText = dateStr;
+          if (step <= 1) {
+            nextStep();
+          }
+        }
+      },
+    });
+
+    supportSendForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const { target } = event;
+
+      if (step === 5) {
+        supportPhonePicked.innerText = target.querySelector('input').value;
+      }
+      if (step === 7) {
+        supportNamePicked.innerText = target.querySelector('input').value;
+      }
+
+      nextStep();
+      target.querySelector('input').value = '';
+    });
+
+    const nextStep = (num) => {
+      if (step === 0) {
+        supportMessages.forEach((item) => {
+          item.classList.remove('_sent');
+        });
+        step++;
+        supportMessages[step].classList.add('_sent');
+      } else {
+        step++;
+        supportMessages[step].classList.add('_sent');
+
+        if (step >= 5 && step < 9) {
+          supportSend.classList.remove('_hidden');
+        }
+        if (step === 9) {
+          supportSend.classList.add('_hidden');
+        }
+      }
+
+      if (step % 2 === 0 && step > 0 && step < 9) {
+        setTimeout(nextStep, 1000);
+      }
+
+      supportScroller.scrollTo({ top: 1000000, behavior: 'smooth' });
+    };
   }
 };
 
@@ -313,99 +860,99 @@ export const homepageMainGuestPicker = () => {
   }
 };
 
-export const supportGuestPicker = () => {
-  if (document.querySelector('#support-guestpicker-item')) {
-    const picker = document.querySelector('#support-guestpicker-item');
-    const pickerAdult = document.querySelector('#support-guestpicker-value');
-    const adultInput = pickerAdult.querySelector('input');
-    let guestCount = 0;
+// export const supportGuestPicker = () => {
+//   if (document.querySelector('#support-guestpicker-item')) {
+//     const picker = document.querySelector('#support-guestpicker-item');
+//     const pickerAdult = document.querySelector('#support-guestpicker-value');
+//     const adultInput = pickerAdult.querySelector('input');
+//     let guestCount = 0;
 
-    const addChild = (age) => {
-      const childElement = document.createElement('div');
-      childElement.classList.add('child');
+//     const addChild = (age) => {
+//       const childElement = document.createElement('div');
+//       childElement.classList.add('child');
 
-      const childName = document.createElement('div');
-      childName.classList.add('child-name');
-      childName.innerText = 'Ребенок';
+//       const childName = document.createElement('div');
+//       childName.classList.add('child-name');
+//       childName.innerText = 'Ребенок';
 
-      const childAge = document.createElement('div');
-      childAge.classList.add('child-age');
-      childAge.innerText = age;
+//       const childAge = document.createElement('div');
+//       childAge.classList.add('child-age');
+//       childAge.innerText = age;
 
-      const childBtn = document.createElement('div');
-      childBtn.classList.add('child-btn');
+//       const childBtn = document.createElement('div');
+//       childBtn.classList.add('child-btn');
 
-      childBtn.addEventListener('click', () => {
-        childElement.remove();
-      });
+//       childBtn.addEventListener('click', () => {
+//         childElement.remove();
+//       });
 
-      childElement.append(childName, childAge, childBtn);
+//       childElement.append(childName, childAge, childBtn);
 
-      const childsContainer = picker.querySelector(
-        '.main-guestpicker__content-childs'
-      );
-      childsContainer.append(childElement);
-    };
+//       const childsContainer = picker.querySelector(
+//         '.main-guestpicker__content-childs'
+//       );
+//       childsContainer.append(childElement);
+//     };
 
-    const selectChildAge = (position) => {
-      const container = document.createElement('div');
-      container.classList.add('main-guestpicker__content-age');
+//     const selectChildAge = (position) => {
+//       const container = document.createElement('div');
+//       container.classList.add('main-guestpicker__content-age');
 
-      const containerTitle = document.createElement('span');
-      containerTitle.classList.add('_title');
-      containerTitle.innerText = 'Укажите возраст ребенка';
+//       const containerTitle = document.createElement('span');
+//       containerTitle.classList.add('_title');
+//       containerTitle.innerText = 'Укажите возраст ребенка';
 
-      const containerAges = document.createElement('div');
-      containerAges.classList.add('_ages');
+//       const containerAges = document.createElement('div');
+//       containerAges.classList.add('_ages');
 
-      for (let index = 0; index < 14; index++) {
-        const containerAgesItem = document.createElement('span');
-        containerAgesItem.innerText = index + 1;
-        containerAges.append(containerAgesItem);
+//       for (let index = 0; index < 14; index++) {
+//         const containerAgesItem = document.createElement('span');
+//         containerAgesItem.innerText = index + 1;
+//         containerAges.append(containerAgesItem);
 
-        containerAgesItem.addEventListener('click', (event) => {
-          const { target } = event;
+//         containerAgesItem.addEventListener('click', (event) => {
+//           const { target } = event;
 
-          addChild(target.innerText);
-          container.remove();
-        });
-      }
+//           addChild(target.innerText);
+//           container.remove();
+//         });
+//       }
 
-      container.append(containerTitle, containerAges);
-      position.insertAdjacentElement('afterend', container);
-    };
+//       container.append(containerTitle, containerAges);
+//       position.insertAdjacentElement('afterend', container);
+//     };
 
-    picker.addEventListener('click', (event) => {
-      const { target } = event;
+//     picker.addEventListener('click', (event) => {
+//       const { target } = event;
 
-      if (target.closest('.main-guestpicker__content-add')) {
-        if (!picker.querySelector('.main-guestpicker__content-age')) {
-          selectChildAge(target.closest('.main-guestpicker__content-add'));
-        }
-      } else if (target.closest('#guest-picker-confirm')) {
-        const childCount = picker.querySelectorAll('.child');
-        guestCount = +adultInput.value + +childCount.length;
+//       if (target.closest('.main-guestpicker__content-add')) {
+//         if (!picker.querySelector('.main-guestpicker__content-age')) {
+//           selectChildAge(target.closest('.main-guestpicker__content-add'));
+//         }
+//       } else if (target.closest('#guest-picker-confirm')) {
+//         const childCount = picker.querySelectorAll('.child');
+//         guestCount = +adultInput.value + +childCount.length;
 
-        // if (guestCount === 1) {
-        //   btn.value = `${guestCount} Гость`;
-        // } else if (guestCount <= 4) {
-        //   btn.value = `${guestCount} Гостя`;
-        // } else if (guestCount > 4) {
-        //   btn.value = `${guestCount} Гостей`;
-        // }
-      }
-    });
-    pickerAdult.addEventListener('click', (event) => {
-      const { target } = event;
+//         // if (guestCount === 1) {
+//         //   btn.value = `${guestCount} Гость`;
+//         // } else if (guestCount <= 4) {
+//         //   btn.value = `${guestCount} Гостя`;
+//         // } else if (guestCount > 4) {
+//         //   btn.value = `${guestCount} Гостей`;
+//         // }
+//       }
+//     });
+//     pickerAdult.addEventListener('click', (event) => {
+//       const { target } = event;
 
-      if (target.closest('._minus') && adultInput.value > 1) {
-        adultInput.value--;
-      } else if (target.closest('._plus')) {
-        adultInput.value++;
-      }
-    });
-  }
-};
+//       if (target.closest('._minus') && adultInput.value > 1) {
+//         adultInput.value--;
+//       } else if (target.closest('._plus')) {
+//         adultInput.value++;
+//       }
+//     });
+//   }
+// };
 
 export const modalGuestPicker = () => {
   if (document.querySelector('#modal-guestpicker-item')) {
@@ -568,12 +1115,18 @@ export const modalRoomPicker = () => {
 
 export const supportMain = () => {
   if (document.querySelector('.support_main')) {
+    let chatWasOpened = false;
     const primartBlock = document.querySelector('.about');
     const support = document.querySelector('.support_main');
     const supportBg = support.querySelector('.support__bg');
     const btn = support.querySelector('.support-top');
 
     const toggleSupport = (type) => {
+      if (!chatWasOpened) {
+        homepageSupportChat();
+        chatWasOpened = true;
+      }
+
       if (support.classList.contains('active')) {
         support.classList.remove('active');
         primartBlock.classList.remove('active');
@@ -594,12 +1147,40 @@ export const supportMain = () => {
 
 export const supportRooms = () => {
   if (document.querySelector('.support_rooms')) {
+    // const primartBlock = document.querySelector('.rooms');
+    // const support = document.querySelector('.support_rooms');
+    // const supportBg = support.querySelector('.support__bg');
+    // const btn = support.querySelector('.support-top');
+
+    // const toggleSupport = (type) => {
+    //   if (support.classList.contains('active')) {
+    //     support.classList.remove('active');
+    //     primartBlock.classList.remove('active');
+    //   } else {
+    //     support.classList.add('active');
+    //     primartBlock.classList.add('active');
+    //   }
+
+    //   if (type === 'close') {
+    //     support.classList.remove('active');
+    //   }
+    // };
+
+    // btn.addEventListener('click', toggleSupport);
+    // supportBg.addEventListener('click', () => toggleSupport('close'));
+
+    let chatWasOpened = false;
     const primartBlock = document.querySelector('.rooms');
     const support = document.querySelector('.support_rooms');
     const supportBg = support.querySelector('.support__bg');
     const btn = support.querySelector('.support-top');
 
     const toggleSupport = (type) => {
+      if (!chatWasOpened) {
+        roomsSupportChat();
+        chatWasOpened = true;
+      }
+
       if (support.classList.contains('active')) {
         support.classList.remove('active');
         primartBlock.classList.remove('active');
@@ -615,5 +1196,249 @@ export const supportRooms = () => {
 
     btn.addEventListener('click', toggleSupport);
     supportBg.addEventListener('click', () => toggleSupport('close'));
+  }
+};
+
+export const homepageModalWithDataGuestPicker = () => {
+  if (document.querySelector('#modal-guestpicker-item-withdata')) {
+    const btn = document.querySelector('#modal-guestpicker-item-withdata-btn');
+    const picker = document.querySelector('#modal-guestpicker-item-withdata');
+    const pickerClear = document.querySelector(
+      '#modal-guestpicker-item-withdata-btn-clear'
+    );
+    const pickerAdult = picker.querySelector(
+      '.modal-guestpicker__content-value'
+    );
+    const adultInput = pickerAdult.querySelector('input');
+    let guestCount = 0;
+
+    const togglePicker = (type) => {
+      if (type === 'close') {
+        picker.classList.remove('active');
+        pickerClear.classList.remove('_visible');
+      } else {
+        if (picker.classList.contains('active')) {
+          picker.classList.remove('active');
+          pickerClear.classList.remove('_visible');
+        } else {
+          picker.classList.add('active');
+          pickerClear.classList.add('_visible');
+        }
+      }
+    };
+
+    const addChild = (age) => {
+      const childElement = document.createElement('div');
+      childElement.classList.add('child');
+
+      const childName = document.createElement('div');
+      childName.classList.add('child-name');
+      childName.innerText = 'Ребенок';
+
+      const childAge = document.createElement('div');
+      childAge.classList.add('child-age');
+      childAge.innerText = age;
+
+      const childBtn = document.createElement('div');
+      childBtn.classList.add('child-btn');
+
+      childBtn.addEventListener('click', () => {
+        childElement.remove();
+      });
+
+      childElement.append(childName, childAge, childBtn);
+
+      const childsContainer = picker.querySelector(
+        '.modal-guestpicker__content-childs'
+      );
+      childsContainer.append(childElement);
+    };
+
+    const selectChildAge = (position) => {
+      const container = document.createElement('div');
+      container.classList.add('modal-guestpicker__content-age');
+
+      const containerTitle = document.createElement('span');
+      containerTitle.classList.add('_title');
+      containerTitle.innerText = 'Укажите возраст ребенка';
+
+      const containerAges = document.createElement('div');
+      containerAges.classList.add('_ages');
+
+      for (let index = 0; index < 14; index++) {
+        const containerAgesItem = document.createElement('span');
+        containerAgesItem.innerText = index + 1;
+        containerAges.append(containerAgesItem);
+
+        containerAgesItem.addEventListener('click', (event) => {
+          const { target } = event;
+
+          addChild(target.innerText);
+          container.remove();
+        });
+      }
+
+      container.append(containerTitle, containerAges);
+      position.insertAdjacentElement('afterend', container);
+    };
+
+    window.addEventListener(
+      'click',
+      (event) => {
+        const withinBoundaries = event.composedPath().includes(picker);
+
+        if (!withinBoundaries) {
+          togglePicker('close');
+        }
+      },
+      true
+    );
+    pickerClear.addEventListener('click', () => {
+      guestCount = 0;
+      btn.value = '';
+    });
+    btn.addEventListener('click', togglePicker);
+    picker.addEventListener('mouseleave', () => togglePicker('close'));
+    picker.addEventListener('click', (event) => {
+      const { target } = event;
+
+      if (target.closest('.modal-guestpicker__content-add')) {
+        if (!picker.querySelector('.modal-guestpicker__content-age')) {
+          selectChildAge(target.closest('.modal-guestpicker__content-add'));
+        }
+      } else if (target.closest('#guest-picker-confirm')) {
+        const childCount = picker.querySelectorAll('.child');
+        guestCount = +adultInput.value + +childCount.length;
+        togglePicker();
+
+        if (guestCount === 1) {
+          btn.value = `${guestCount} Гость`;
+        } else if (guestCount <= 4) {
+          btn.value = `${guestCount} Гостя`;
+        } else if (guestCount > 4) {
+          btn.value = `${guestCount} Гостей`;
+        }
+      }
+    });
+    pickerAdult.addEventListener('click', (event) => {
+      const { target } = event;
+
+      if (target.closest('._minus') && adultInput.value > 1) {
+        adultInput.value--;
+      } else if (target.closest('._plus')) {
+        adultInput.value++;
+      }
+    });
+  }
+};
+
+export const homepageModalWithDataRoomPicker = () => {
+  if (document.querySelector('.modal-booking__item_select_withdata')) {
+    const element = document.querySelector(
+      '.modal-booking__item_select_withdata'
+    );
+    const choices = new Choices(element, {
+      searchEnabled: false,
+      itemSelectText: '',
+      removeItemButton: true,
+      classNames: {
+        containerOuter:
+          'choices main-booking__item modal-booking__item_select_withdata',
+      },
+    });
+
+    choices.setValue([{ value: 'One', label: 'Label One' }]);
+  }
+};
+
+export const homepageBooking = () => {
+  if (document.querySelector('#homepage-booking-form-btn')) {
+    const openBtn = document.querySelectorAll('#homepage-booking-form-btn');
+    const modal = document.querySelector('.modal_booking_withdata');
+    const body = document.querySelector('body');
+    const content = document.querySelectorAll('.container');
+    const dataValueInner = document.querySelector(
+      '.homepage-datapicker-inner input'
+    );
+    const modalDataValue = modal.querySelector(
+      '.main-booking__item_input input'
+    );
+    const guestValueInner = document.querySelector(
+      '#homepage-main-guestpicker-btn'
+    );
+    const guestDataValue = modal.querySelector(
+      '#modal-guestpicker-item-withdata-btn'
+    );
+
+    const element = document.querySelector(
+      '.modal-booking__item_select_withdata'
+    );
+    const choices = new Choices(element, {
+      searchEnabled: false,
+      itemSelectText: '',
+      removeItemButton: true,
+      classNames: {
+        containerOuter:
+          'choices main-booking__item modal-booking__item_select_withdata',
+      },
+    });
+
+    let toggleModal = (e) => {
+      e.preventDefault();
+
+      modalDataValue.value = dataValueInner.value;
+      guestDataValue.value = guestValueInner.value;
+
+      const roomSelect = document
+        .querySelector('.main-booking__item_select')
+        .querySelector('.choices__item--selectable');
+
+      if (roomSelect.dataset.value !== false) {
+        choices.setChoiceByValue(roomSelect.dataset.value);
+      }
+
+      let div = document.createElement('div');
+      div.style.overflowY = 'scroll';
+      div.style.width = '50px';
+      div.style.height = '50px';
+      document.body.append(div);
+      let scrollWidth = div.offsetWidth - div.clientWidth;
+
+      div.remove();
+
+      if (modal.classList.contains('active')) {
+        modal.classList.remove('active');
+        body.classList.remove('lock');
+        if (window.innerWidth > 992) {
+          content.forEach((item) => {
+            item.style.maxWidth = `1610px`;
+            item.style.padding = ` 0 15px`;
+          });
+        }
+      } else {
+        modal.classList.add('active');
+        body.classList.add('lock');
+        if (window.innerWidth > 992) {
+          content.forEach((item) => {
+            item.style.maxWidth = `${1610 + scrollWidth}px`;
+            item.style.padding = ` 0 ${scrollWidth + 15}px 0 15px`;
+          });
+        }
+      }
+    };
+
+    openBtn.forEach((item) => {
+      item.addEventListener('click', toggleModal);
+    });
+
+    modal.addEventListener('click', (event) => {
+      const { target } = event;
+
+      if (target.closest('.modal__bg')) {
+        toggleModal(event);
+      } else if (target.closest('.modal-body__close')) {
+        toggleModal(event);
+      }
+    });
   }
 };
