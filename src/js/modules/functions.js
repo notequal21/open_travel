@@ -2,6 +2,8 @@ import flatpickr from 'flatpickr';
 import confirmDatePlugin from 'flatpickr/dist/plugins/confirmDate/confirmDate.js';
 import { Russian } from 'flatpickr/dist/l10n/ru.js';
 import Choices from 'choices.js';
+import Inputmask from '../../../node_modules/inputmask/dist/inputmask.es6.js';
+import JustValidate from 'just-validate';
 
 export function isWebp() {
   function testWebP(callback) {
@@ -70,8 +72,53 @@ export const modal = () => {
     const body = document.querySelector('body');
     const content = document.querySelectorAll('.container');
 
+    const phoneInput = document.querySelector('#modal-phone-input');
+    let phoneMaskBooking = new Inputmask('9(999)999-99-99');
+    phoneMaskBooking.mask(phoneInput);
+
+    const validate = new JustValidate('#modal-body-form-booking');
+    validate
+      .addField('#modal-name-input', [
+        {
+          rule: 'required',
+        },
+      ])
+      .addField('#modal-datapicker-input', [
+        {
+          rule: 'required',
+        },
+      ])
+      .addField('#modal-phone-input', [
+        {
+          rule: 'required',
+        },
+      ])
+      .addField('#modal-guestpicker-btn', [
+        {
+          rule: 'required',
+        },
+      ])
+      .addField('#modal-email-input', [
+        {
+          rule: 'required',
+        },
+      ])
+      .addField('#modal-checkbox', [
+        {
+          rule: 'required',
+        },
+      ])
+      .onSuccess((event) => {
+        const modalSuccess = document.querySelector('.modal_success');
+        modalSuccess.classList.add('active');
+        toggleModal();
+        setTimeout(() => {
+          modalSuccess.classList.remove('active');
+        }, 3000);
+      });
+
     let toggleModal = (e) => {
-      e.preventDefault();
+      e && e.preventDefault();
 
       let div = document.createElement('div');
       div.style.overflowY = 'scroll';
@@ -166,20 +213,6 @@ export const homepageMainDataPicker = () => {
   }
 };
 
-// export const supportDataPicker = () => {
-//   if (document.querySelector('#support-datapicker')) {
-//     const isMobie = window.innerWidth < 767;
-
-//     flatpickr('#support-datapicker', {
-//       mode: 'range',
-//       showMonths: isMobie ? 1 : 2,
-//       minDate: Date.now(),
-//       locale: Russian,
-//       inline: true,
-//     });
-//   }
-// };
-
 export const homepageSupportChat = () => {
   if (document.querySelector('.support_main')) {
     let step = 0;
@@ -197,6 +230,7 @@ export const homepageSupportChat = () => {
     );
     const supportSend = support.querySelector('.support-content__send');
     const supportSendForm = supportSend.querySelector('form');
+    const supportSendFormInput = supportSendForm.querySelector('input');
     const supportMessages = support.querySelectorAll('._message');
     const isMobie = window.innerWidth < 767;
 
@@ -205,6 +239,9 @@ export const homepageSupportChat = () => {
     const pickerAdult = picker.querySelector('#support-guestpicker-value');
     const adultInput = pickerAdult.querySelector('input');
     let guestCount = 0;
+
+    let phoneMaskSupport = new Inputmask('9(999)999-99-99');
+    phoneMaskSupport.mask(supportSendFormInput);
 
     const addChild = (age) => {
       const childElement = document.createElement('div');
@@ -356,6 +393,10 @@ export const homepageSupportChat = () => {
 
       if (step % 2 === 0 && step > 0 && step < 9) {
         setTimeout(nextStep, 1000);
+      }
+
+      if (step >= 6) {
+        Inputmask.remove(supportSendFormInput);
       }
 
       supportScroller.scrollTo({ top: 1000000, behavior: 'smooth' });
@@ -380,6 +421,7 @@ export const roomsSupportChat = () => {
     );
     const supportSend = support.querySelector('.support-content__send');
     const supportSendForm = supportSend.querySelector('form');
+    const supportSendFormInput = supportSendForm.querySelector('input');
     const supportMessages = support.querySelectorAll('._message');
     const isMobie = window.innerWidth < 767;
 
@@ -388,6 +430,9 @@ export const roomsSupportChat = () => {
     const pickerAdult = picker.querySelector('#support-guestpicker-value');
     const adultInput = pickerAdult.querySelector('input');
     let guestCount = 0;
+
+    let phoneMaskSupport = new Inputmask('9(999)999-99-99');
+    phoneMaskSupport.mask(supportSendFormInput);
 
     const addChild = (age) => {
       const childElement = document.createElement('div');
@@ -539,6 +584,10 @@ export const roomsSupportChat = () => {
 
       if (step % 2 === 0 && step > 0 && step < 9) {
         setTimeout(nextStep, 1000);
+      }
+
+      if (step >= 6) {
+        Inputmask.remove(supportSendFormInput);
       }
 
       supportScroller.scrollTo({ top: 1000000, behavior: 'smooth' });
@@ -563,6 +612,7 @@ export const mobileSupportChat = () => {
     );
     const supportSend = support.querySelector('.support-content__send');
     const supportSendForm = supportSend.querySelector('form');
+    const supportSendFormInput = supportSendForm.querySelector('input');
     const supportMessages = support.querySelectorAll('._message');
     const isMobie = window.innerWidth < 767;
 
@@ -571,6 +621,9 @@ export const mobileSupportChat = () => {
     const pickerAdult = picker.querySelector('#support-guestpicker-value');
     const adultInput = pickerAdult.querySelector('input');
     let guestCount = 0;
+
+    let phoneMaskSupport = new Inputmask('9(999)999-99-99');
+    phoneMaskSupport.mask(supportSendFormInput);
 
     const addChild = (age) => {
       const childElement = document.createElement('div');
@@ -724,6 +777,10 @@ export const mobileSupportChat = () => {
         setTimeout(nextStep, 1000);
       }
 
+      if (step >= 6) {
+        Inputmask.remove(supportSendFormInput);
+      }
+
       supportScroller.scrollTo({ top: 1000000, behavior: 'smooth' });
     };
   }
@@ -732,6 +789,9 @@ export const mobileSupportChat = () => {
 export const homepageMainGuestPicker = () => {
   if (document.querySelector('#homepage-main-guestpicker-item')) {
     const btn = document.querySelector('#homepage-main-guestpicker-btn');
+    const bookingModalValue = document.querySelector(
+      '#modal-guestpicker-item-withdata-value input'
+    );
     const picker = document.querySelector('#homepage-main-guestpicker-item');
     const pickerAdult = document.querySelector('#main-guestpicker-value');
     const pickerClear = document.querySelector(
@@ -779,6 +839,7 @@ export const homepageMainGuestPicker = () => {
       const childsContainer = picker.querySelector(
         '.main-guestpicker__content-childs'
       );
+
       childsContainer.append(childElement);
     };
 
@@ -839,6 +900,32 @@ export const homepageMainGuestPicker = () => {
         guestCount = +adultInput.value + +childCount.length;
         togglePicker();
 
+        const childsContainerChilds = picker.querySelector(
+          '.main-guestpicker__content-childs'
+        );
+        const childsContainer =
+          childsContainerChilds.querySelectorAll('.child');
+        const childsContainerClone = childsContainerChilds.cloneNode(true);
+        const childsContainerCloneList =
+          childsContainerClone.querySelectorAll('.child');
+
+        const childsContainerModal = document.querySelector(
+          '.modal_booking_withdata'
+        );
+
+        const removeItems = childsContainerModal.querySelectorAll('.child');
+
+        removeItems.forEach((item) => {
+          item.remove();
+        });
+
+        childsContainerCloneList.forEach((elem) => {
+          childsContainerModal
+            .querySelector('.modal-guestpicker__content-childs')
+            .append(elem);
+        });
+
+        bookingModalValue.value = +adultInput.value;
         if (guestCount === 1) {
           btn.value = `${guestCount} Гость`;
         } else if (guestCount <= 4) {
@@ -859,100 +946,6 @@ export const homepageMainGuestPicker = () => {
     });
   }
 };
-
-// export const supportGuestPicker = () => {
-//   if (document.querySelector('#support-guestpicker-item')) {
-//     const picker = document.querySelector('#support-guestpicker-item');
-//     const pickerAdult = document.querySelector('#support-guestpicker-value');
-//     const adultInput = pickerAdult.querySelector('input');
-//     let guestCount = 0;
-
-//     const addChild = (age) => {
-//       const childElement = document.createElement('div');
-//       childElement.classList.add('child');
-
-//       const childName = document.createElement('div');
-//       childName.classList.add('child-name');
-//       childName.innerText = 'Ребенок';
-
-//       const childAge = document.createElement('div');
-//       childAge.classList.add('child-age');
-//       childAge.innerText = age;
-
-//       const childBtn = document.createElement('div');
-//       childBtn.classList.add('child-btn');
-
-//       childBtn.addEventListener('click', () => {
-//         childElement.remove();
-//       });
-
-//       childElement.append(childName, childAge, childBtn);
-
-//       const childsContainer = picker.querySelector(
-//         '.main-guestpicker__content-childs'
-//       );
-//       childsContainer.append(childElement);
-//     };
-
-//     const selectChildAge = (position) => {
-//       const container = document.createElement('div');
-//       container.classList.add('main-guestpicker__content-age');
-
-//       const containerTitle = document.createElement('span');
-//       containerTitle.classList.add('_title');
-//       containerTitle.innerText = 'Укажите возраст ребенка';
-
-//       const containerAges = document.createElement('div');
-//       containerAges.classList.add('_ages');
-
-//       for (let index = 0; index < 14; index++) {
-//         const containerAgesItem = document.createElement('span');
-//         containerAgesItem.innerText = index + 1;
-//         containerAges.append(containerAgesItem);
-
-//         containerAgesItem.addEventListener('click', (event) => {
-//           const { target } = event;
-
-//           addChild(target.innerText);
-//           container.remove();
-//         });
-//       }
-
-//       container.append(containerTitle, containerAges);
-//       position.insertAdjacentElement('afterend', container);
-//     };
-
-//     picker.addEventListener('click', (event) => {
-//       const { target } = event;
-
-//       if (target.closest('.main-guestpicker__content-add')) {
-//         if (!picker.querySelector('.main-guestpicker__content-age')) {
-//           selectChildAge(target.closest('.main-guestpicker__content-add'));
-//         }
-//       } else if (target.closest('#guest-picker-confirm')) {
-//         const childCount = picker.querySelectorAll('.child');
-//         guestCount = +adultInput.value + +childCount.length;
-
-//         // if (guestCount === 1) {
-//         //   btn.value = `${guestCount} Гость`;
-//         // } else if (guestCount <= 4) {
-//         //   btn.value = `${guestCount} Гостя`;
-//         // } else if (guestCount > 4) {
-//         //   btn.value = `${guestCount} Гостей`;
-//         // }
-//       }
-//     });
-//     pickerAdult.addEventListener('click', (event) => {
-//       const { target } = event;
-
-//       if (target.closest('._minus') && adultInput.value > 1) {
-//         adultInput.value--;
-//       } else if (target.closest('._plus')) {
-//         adultInput.value++;
-//       }
-//     });
-//   }
-// };
 
 export const modalGuestPicker = () => {
   if (document.querySelector('#modal-guestpicker-item')) {
@@ -1311,6 +1304,16 @@ export const homepageModalWithDataGuestPicker = () => {
         guestCount = +adultInput.value + +childCount.length;
         togglePicker();
 
+        const childsContainerMain = document.querySelector('.main-guestpicker');
+
+        const removeItems = childsContainerMain.querySelectorAll(
+          '.main-guestpicker__content-childs .child'
+        );
+
+        removeItems.forEach((item) => {
+          item.remove();
+        });
+
         if (guestCount === 1) {
           btn.value = `${guestCount} Гость`;
         } else if (guestCount <= 4) {
@@ -1369,6 +1372,49 @@ export const homepageBooking = () => {
     const guestDataValue = modal.querySelector(
       '#modal-guestpicker-item-withdata-btn'
     );
+    const phoneInput = document.querySelector('#homepage-main-phone-input');
+    let phoneMaskBooking = new Inputmask('9(999)999-99-99');
+    phoneMaskBooking.mask(phoneInput);
+    const validate = new JustValidate('#modal-body-form');
+    validate
+      .addField('#homepage-main-name-input', [
+        {
+          rule: 'required',
+        },
+      ])
+      .addField('#homepage-main-datapicker-input', [
+        {
+          rule: 'required',
+        },
+      ])
+      .addField('#homepage-main-phone-input', [
+        {
+          rule: 'required',
+        },
+      ])
+      .addField('#modal-guestpicker-item-withdata-btn', [
+        {
+          rule: 'required',
+        },
+      ])
+      .addField('#homepage-main-email-input', [
+        {
+          rule: 'required',
+        },
+      ])
+      .addField('#homepage-main-checkbox', [
+        {
+          rule: 'required',
+        },
+      ])
+      .onSuccess((event) => {
+        const modalSuccess = document.querySelector('.modal_success');
+        modalSuccess.classList.add('active');
+        toggleModal();
+        setTimeout(() => {
+          modalSuccess.classList.remove('active');
+        }, 3000);
+      });
 
     const element = document.querySelector(
       '.modal-booking__item_select_withdata'
@@ -1384,7 +1430,7 @@ export const homepageBooking = () => {
     });
 
     let toggleModal = (e) => {
-      e.preventDefault();
+      e && e.preventDefault();
 
       modalDataValue.value = dataValueInner.value;
       guestDataValue.value = guestValueInner.value;

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1, user-scalable=0">
-  <link rel="stylesheet" href="css/style.min.css?_v=20230608001707">
+  <link rel="stylesheet" href="css/style.min.css?_v=20230608173721">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 
   <!-- ios fix -->
@@ -33,7 +33,7 @@
     <div class="modal-body__title">
       Предварительная заявка на бронь
     </div>
-    <form class="modal-body__form">
+    <form id="modal-body-form-booking" class="modal-body__form">
       <label class="modal-body__form-item">
         <select class="modal-booking__item_select">
           <option value="">Выбрать номер</option>
@@ -44,11 +44,11 @@
         </select>
       </label>
       <label class="modal-body__form-item">
-        <input type="text" placeholder="Ваше ФИО">
+        <input type="text" id="modal-name-input" placeholder="Ваше ФИО">
       </label>
       <label class="modal-body__form-item">
         <div class="flatpickr main-booking__item main-booking__item_input _nopadding" id="homepage-main-datapicker">
-          <input placeholder="Заезд - Выезд" data-input />
+          <input id="modal-datapicker-input" placeholder="Заезд - Выезд" data-input />
           <a class="input-button" title="clear" data-clear>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M18 6L6 18" stroke="#4293FB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -60,7 +60,7 @@
           class="main-booking__item main-booking__item_input" /> -->
       </label>
       <label class="modal-body__form-item">
-        <input type="text" placeholder="Телефон">
+        <input id='modal-phone-input' type="text" placeholder="Телефон">
       </label>
       <div class="modal-body__form-item">
         <input readonly="readonly" id="modal-guestpicker-btn" placeholder="Гости"
@@ -98,7 +98,7 @@
         </div>
       </div>
       <label class="modal-body__form-item">
-        <input type="text" placeholder="E-mail">
+        <input id="modal-email-input" type="text" placeholder="E-mail">
       </label>
       <label class="modal-body__form-item modal-body__form-item_big">
         <textarea placeholder="Комментарий к заявке"></textarea>
@@ -106,7 +106,7 @@
 
       <div class="modal-body__form-apply apply-policy">
         <label class="apply-policy__switcher">
-          <input type="checkbox">
+          <input id="modal-checkbox" type="checkbox">
 
           <span></span>
 
@@ -134,7 +134,7 @@
     <div class="modal-body__title">
       Предварительная заявка на бронь
     </div>
-    <form class="modal-body__form">
+    <form id="modal-body-form" class="modal-body__form">
       <label class="modal-body__form-item">
         <select class="modal-booking__item_select_withdata">
           <option value="">Выбрать номер</option>
@@ -145,11 +145,11 @@
         </select>
       </label>
       <label class="modal-body__form-item">
-        <input type="text" placeholder="Ваше ФИО">
+        <input id="homepage-main-name-input" type="text" placeholder="Ваше ФИО">
       </label>
       <label class="modal-body__form-item">
         <div class="flatpickr main-booking__item main-booking__item_input _nopadding" id="homepage-main-datapicker">
-          <input placeholder="Заезд - Выезд" data-input />
+          <input id="homepage-main-datapicker-input" placeholder="Заезд - Выезд" data-input />
           <a class="input-button" title="clear" data-clear>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M18 6L6 18" stroke="#4293FB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -161,7 +161,7 @@
           class="main-booking__item main-booking__item_input" /> -->
       </label>
       <label class="modal-body__form-item">
-        <input type="text" placeholder="Телефон">
+        <input id="homepage-main-phone-input" type="text" placeholder="Телефон">
       </label>
       <div class="modal-body__form-item">
         <input readonly="readonly" id="modal-guestpicker-item-withdata-btn" placeholder="Гости"
@@ -199,7 +199,7 @@
         </div>
       </div>
       <label class="modal-body__form-item">
-        <input type="text" placeholder="E-mail">
+        <input id="homepage-main-email-input" type="text" placeholder="E-mail">
       </label>
       <label class="modal-body__form-item modal-body__form-item_big">
         <textarea placeholder="Комментарий к заявке"></textarea>
@@ -207,7 +207,7 @@
 
       <div class="modal-body__form-apply apply-policy">
         <label class="apply-policy__switcher">
-          <input type="checkbox">
+          <input id="homepage-main-checkbox" type="checkbox">
 
           <span></span>
 
@@ -851,7 +851,7 @@
 </footer>
   </div>
 
-  <script src="js/app.min.js?_v=20230608001707"></script>
+  <script src="js/app.min.js?_v=20230608173721"></script>
 
 </body>
 

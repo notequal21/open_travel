@@ -524,6 +524,14 @@ h6 {
   gap: 30px 20px;
 }
 
+.modal-body__form input.just-validate-error-field {
+  border-color: rgb(255, 82, 82);
+}
+
+.modal-body__form .just-validate-error-label {
+  display: none;
+}
+
 .modal-body__form-item {
   position: relative;
   height: 55px;
@@ -852,6 +860,10 @@ h6 {
   display: none;
 }
 
+.modal-body__form-apply .apply-policy__switcher input.just-validate-error-field + span:after {
+  background: rgb(255, 82, 82);
+}
+
 .modal-body__form-apply .apply-policy__switcher input:checked + span {
   background: rgba(66, 147, 251, 0.38);
 }
@@ -999,6 +1011,18 @@ h6 {
 .modal-booking__item_select_withdata .choices__item.choices__item--choice.is-highlighted {
   background-color: transparent !important;
   color: #4293fb;
+}
+
+.modal .main-booking__item_input._nopadding {
+  border: none;
+}
+
+.modal .main-booking__item_input._nopadding input {
+  border: 1px solid #c3d3e9;
+}
+
+.modal .main-booking__item_input._nopadding input.just-validate-error-field {
+  border-color: rgb(255, 82, 82);
 }
 
 .modal_success .modal-body {
@@ -4849,6 +4873,12 @@ body.lock {
 @media (max-width: 370px) {
   .main-body__img-text br {
     display: block;
+  }
+}
+
+@media (max-height: 920px) {
+  .modal-body__form-guest .modal-guestpicker__content {
+    height: 225px;
   }
 }
 

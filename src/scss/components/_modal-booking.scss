@@ -93,6 +93,14 @@
         gap: 20px 0;
       }
 
+      input.just-validate-error-field {
+        border-color: rgb(255, 82, 82);
+      }
+
+      .just-validate-error-label {
+        display: none;
+      }
+
       &-item {
         position: relative;
         height: 55px;
@@ -214,6 +222,10 @@
             height: 332px;
             overflow-y: auto;
             overflow-x: hidden;
+
+            @media (max-height: 920px) {
+              height: 225px;
+            }
 
             @media (max-width: 767px) {
               height: 170px;
@@ -453,6 +465,12 @@
             input {
               display: none;
 
+              &.just-validate-error-field + span {
+                &:after {
+                  background: rgb(255, 82, 82);
+                }
+              }
+
               &:checked + span {
                 background: rgba($color: #4293fb, $alpha: 0.38);
                 &::after {
@@ -615,6 +633,17 @@
   .main-booking {
     &__item {
       &_input {
+        &._nopadding {
+          border: none;
+
+          input {
+            border: 1px solid #c3d3e9;
+
+            &.just-validate-error-field {
+              border-color: rgb(255, 82, 82);
+            }
+          }
+        }
       }
     }
   }
