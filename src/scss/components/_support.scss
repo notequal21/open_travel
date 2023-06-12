@@ -284,6 +284,10 @@
     ._message {
       display: none;
 
+      .typed-cursor {
+        display: none;
+      }
+
       &._sent {
         display: block;
       }
@@ -347,7 +351,12 @@
       }
 
       &__datapicker {
+        display: none;
         margin: 24px 0 0;
+
+        &.active {
+          display: block;
+        }
 
         .main-booking__item {
           display: none;
@@ -355,7 +364,12 @@
       }
 
       &__guestpicker {
+        display: none;
         margin: 24px 0 0;
+
+        &.active {
+          display: block;
+        }
 
         .main-booking__item-guest {
           border: none;

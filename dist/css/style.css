@@ -1293,6 +1293,10 @@ h6 {
   display: none;
 }
 
+.support-content ._message .typed-cursor {
+  display: none;
+}
+
 .support-content ._message._sent {
   display: block;
 }
@@ -1348,7 +1352,12 @@ h6 {
 }
 
 .support-content ._message__datapicker {
+  display: none;
   margin: 24px 0 0;
+}
+
+.support-content ._message__datapicker.active {
+  display: block;
 }
 
 .support-content ._message__datapicker .main-booking__item {
@@ -1356,7 +1365,12 @@ h6 {
 }
 
 .support-content ._message__guestpicker {
+  display: none;
   margin: 24px 0 0;
+}
+
+.support-content ._message__guestpicker.active {
+  display: block;
 }
 
 .support-content ._message__guestpicker .main-booking__item-guest {
@@ -2198,6 +2212,8 @@ h6 {
 }
 
 .rooms-body__item {
+  display: flex;
+  flex-direction: column;
   position: relative;
   min-width: 0;
   flex: 0 0 calc(50% - 10px);
@@ -2272,6 +2288,9 @@ h6 {
 }
 
 .rooms-body__item-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
   background: #ffffff;
   border: 1px solid #c3d3e9;
   border-top: none;
@@ -2307,7 +2326,8 @@ h6 {
 .rooms-body__item-text ._btns {
   display: flex;
   justify-content: center;
-  margin: 62px 0 0;
+  margin: auto 0 0;
+  padding: 62px 0 0;
 }
 
 .rooms-body__item-text ._btns__item {

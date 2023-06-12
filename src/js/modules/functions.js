@@ -4,6 +4,7 @@ import { Russian } from 'flatpickr/dist/l10n/ru.js';
 import Choices from 'choices.js';
 import Inputmask from '../../../node_modules/inputmask/dist/inputmask.es6.js';
 import JustValidate from 'just-validate';
+import Typed from 'typed.js';
 
 export function isWebp() {
   function testWebP(callback) {
@@ -76,6 +77,16 @@ export const modal = () => {
     let phoneMaskBooking = new Inputmask('9(999)999-99-99');
     phoneMaskBooking.mask(phoneInput);
 
+    const element = document.querySelector('.modal-booking__item_select');
+    const choices = new Choices(element, {
+      searchEnabled: false,
+      itemSelectText: '',
+      removeItemButton: true,
+      classNames: {
+        containerOuter: 'choices main-booking__item modal-booking__item_select',
+      },
+    });
+
     const validate = new JustValidate('#modal-body-form-booking');
     validate
       .addField('#modal-name-input', [
@@ -112,6 +123,7 @@ export const modal = () => {
         const modalSuccess = document.querySelector('.modal_success');
         modalSuccess.classList.add('active');
         toggleModal();
+        event.target.reset();
         setTimeout(() => {
           modalSuccess.classList.remove('active');
         }, 3000);
@@ -119,6 +131,9 @@ export const modal = () => {
 
     let toggleModal = (e) => {
       e && e.preventDefault();
+      if (e.target.dataset.value) {
+        choices.setChoiceByValue(e.target.dataset.value);
+      }
 
       let div = document.createElement('div');
       div.style.overflowY = 'scroll';
@@ -207,6 +222,7 @@ export const homepageMainDataPicker = () => {
       minDate: Date.now(),
       locale: Russian,
       wrap: true,
+      dateFormat: 'd.m.Y',
 
       plugins: [new confirmDatePlugin({})],
     });
@@ -260,6 +276,8 @@ export const homepageSupportChat = () => {
 
       childBtn.addEventListener('click', () => {
         childElement.remove();
+        picker.querySelector('.main-guestpicker__content-add').style.display =
+          'block';
       });
 
       childElement.append(childName, childAge, childBtn);
@@ -288,9 +306,16 @@ export const homepageSupportChat = () => {
 
         containerAgesItem.addEventListener('click', (event) => {
           const { target } = event;
+          const childCount = picker.querySelectorAll('.child');
 
           addChild(target.innerText);
           container.remove();
+
+          if (childCount.length >= 3) {
+            picker.querySelector(
+              '.main-guestpicker__content-add'
+            ).style.display = 'none';
+          }
         });
       }
 
@@ -346,6 +371,7 @@ export const homepageSupportChat = () => {
       minDate: Date.now(),
       locale: Russian,
       inline: true,
+      dateFormat: 'd.m.Y',
 
       onValueUpdate: function (selectedDates, dateStr, instance) {
         if (selectedDates.length === 2) {
@@ -373,6 +399,7 @@ export const homepageSupportChat = () => {
     });
 
     const nextStep = (num) => {
+      supportSend.classList.add('_hidden');
       if (step === 0) {
         supportMessages.forEach((item) => {
           item.classList.remove('_sent');
@@ -383,20 +410,134 @@ export const homepageSupportChat = () => {
         step++;
         supportMessages[step].classList.add('_sent');
 
-        if (step >= 5 && step < 9) {
-          supportSend.classList.remove('_hidden');
-        }
         if (step === 9) {
           supportSend.classList.add('_hidden');
         }
       }
 
-      if (step % 2 === 0 && step > 0 && step < 9) {
-        setTimeout(nextStep, 1000);
+      if (step === 1) {
+        const text = supportMessages[step].querySelector(
+          '._message__content p'
+        );
+        const writeLabel = supportMessages[step].querySelector(
+          '._message__content._writing'
+        );
+        const dataPicker = supportMessages[step].querySelector(
+          '._message__datapicker'
+        );
+
+        let typed = new Typed(text, {
+          strings: [`${text.dataset.text}`],
+          typeSpeed: 10,
+          onComplete: (self) => {
+            writeLabel.style.display = 'none';
+
+            setTimeout(() => {
+              dataPicker.classList.add('active');
+              supportScroller.scrollTo({ top: 1000000, behavior: 'smooth' });
+            }, 200);
+          },
+        });
+      }
+
+      if (step === 3) {
+        const text = supportMessages[step].querySelector(
+          '._message__content p'
+        );
+        const writeLabel = supportMessages[step].querySelector(
+          '._message__content._writing'
+        );
+
+        const guestPicker = supportMessages[step].querySelector(
+          '._message__guestpicker'
+        );
+
+        let typed = new Typed(text, {
+          strings: [`${text.dataset.text}`],
+          typeSpeed: 10,
+          onComplete: (self) => {
+            writeLabel.style.display = 'none';
+
+            setTimeout(() => {
+              guestPicker.classList.add('active');
+              supportScroller.scrollTo({ top: 1000000, behavior: 'smooth' });
+            }, 200);
+          },
+        });
+      }
+
+      if (step === 5) {
+        const text = supportMessages[step].querySelector(
+          '._message__content p'
+        );
+        const writeLabel = supportMessages[step].querySelector(
+          '._message__content._writing'
+        );
+
+        let typed = new Typed(text, {
+          strings: [`${text.dataset.text}`],
+          typeSpeed: 10,
+          onComplete: (self) => {
+            writeLabel.style.display = 'none';
+
+            setTimeout(() => {
+              supportSend.classList.remove('_hidden');
+              supportScroller.scrollTo({ top: 1000000, behavior: 'smooth' });
+            }, 200);
+          },
+        });
       }
 
       if (step >= 6) {
         Inputmask.remove(supportSendFormInput);
+        supportSendFormInput.placeholder = 'Ваш ответ';
+      }
+
+      if (step === 7) {
+        const text = supportMessages[step].querySelector(
+          '._message__content p'
+        );
+        const writeLabel = supportMessages[step].querySelector(
+          '._message__content._writing'
+        );
+
+        let typed = new Typed(text, {
+          strings: [`${text.dataset.text}`],
+          typeSpeed: 10,
+          onComplete: (self) => {
+            writeLabel.style.display = 'none';
+
+            setTimeout(() => {
+              supportSend.classList.remove('_hidden');
+              supportScroller.scrollTo({ top: 1000000, behavior: 'smooth' });
+            }, 200);
+          },
+        });
+      }
+
+      if (step === 9) {
+        const text = supportMessages[step].querySelector(
+          '._message__content p'
+        );
+        const writeLabel = supportMessages[step].querySelector(
+          '._message__content._writing'
+        );
+
+        let typed = new Typed(text, {
+          strings: [`${text.dataset.text}`],
+          typeSpeed: 10,
+          onComplete: (self) => {
+            writeLabel.style.display = 'none';
+
+            setTimeout(() => {
+              supportScroller.scrollTo({ top: 1000000, behavior: 'smooth' });
+            }, 200);
+          },
+        });
+      }
+
+      if (step % 2 === 0 && step > 0 && step < 9) {
+        setTimeout(nextStep, 1000);
       }
 
       supportScroller.scrollTo({ top: 1000000, behavior: 'smooth' });
@@ -451,6 +592,8 @@ export const roomsSupportChat = () => {
 
       childBtn.addEventListener('click', () => {
         childElement.remove();
+        picker.querySelector('.main-guestpicker__content-add').style.display =
+          'block';
       });
 
       childElement.append(childName, childAge, childBtn);
@@ -479,9 +622,16 @@ export const roomsSupportChat = () => {
 
         containerAgesItem.addEventListener('click', (event) => {
           const { target } = event;
+          const childCount = picker.querySelectorAll('.child');
 
           addChild(target.innerText);
           container.remove();
+
+          if (childCount.length >= 3) {
+            picker.querySelector(
+              '.main-guestpicker__content-add'
+            ).style.display = 'none';
+          }
         });
       }
 
@@ -537,6 +687,7 @@ export const roomsSupportChat = () => {
       minDate: Date.now(),
       locale: Russian,
       inline: true,
+      dateFormat: 'd.m.Y',
 
       onValueUpdate: function (selectedDates, dateStr, instance) {
         if (selectedDates.length === 2) {
@@ -574,20 +725,134 @@ export const roomsSupportChat = () => {
         step++;
         supportMessages[step].classList.add('_sent');
 
-        if (step >= 5 && step < 9) {
-          supportSend.classList.remove('_hidden');
-        }
         if (step === 9) {
           supportSend.classList.add('_hidden');
         }
       }
 
-      if (step % 2 === 0 && step > 0 && step < 9) {
-        setTimeout(nextStep, 1000);
+      if (step === 1) {
+        const text = supportMessages[step].querySelector(
+          '._message__content p'
+        );
+        const writeLabel = supportMessages[step].querySelector(
+          '._message__content._writing'
+        );
+        const dataPicker = supportMessages[step].querySelector(
+          '._message__datapicker'
+        );
+
+        let typed = new Typed(text, {
+          strings: [`${text.dataset.text}`],
+          typeSpeed: 10,
+          onComplete: (self) => {
+            writeLabel.style.display = 'none';
+
+            setTimeout(() => {
+              dataPicker.classList.add('active');
+              supportScroller.scrollTo({ top: 1000000, behavior: 'smooth' });
+            }, 200);
+          },
+        });
+      }
+
+      if (step === 3) {
+        const text = supportMessages[step].querySelector(
+          '._message__content p'
+        );
+        const writeLabel = supportMessages[step].querySelector(
+          '._message__content._writing'
+        );
+
+        const guestPicker = supportMessages[step].querySelector(
+          '._message__guestpicker'
+        );
+
+        let typed = new Typed(text, {
+          strings: [`${text.dataset.text}`],
+          typeSpeed: 10,
+          onComplete: (self) => {
+            writeLabel.style.display = 'none';
+
+            setTimeout(() => {
+              guestPicker.classList.add('active');
+              supportScroller.scrollTo({ top: 1000000, behavior: 'smooth' });
+            }, 200);
+          },
+        });
+      }
+
+      if (step === 5) {
+        const text = supportMessages[step].querySelector(
+          '._message__content p'
+        );
+        const writeLabel = supportMessages[step].querySelector(
+          '._message__content._writing'
+        );
+
+        let typed = new Typed(text, {
+          strings: [`${text.dataset.text}`],
+          typeSpeed: 10,
+          onComplete: (self) => {
+            writeLabel.style.display = 'none';
+
+            setTimeout(() => {
+              supportSend.classList.remove('_hidden');
+              supportScroller.scrollTo({ top: 1000000, behavior: 'smooth' });
+            }, 200);
+          },
+        });
       }
 
       if (step >= 6) {
         Inputmask.remove(supportSendFormInput);
+        supportSendFormInput.placeholder = 'Ваш ответ';
+      }
+
+      if (step === 7) {
+        const text = supportMessages[step].querySelector(
+          '._message__content p'
+        );
+        const writeLabel = supportMessages[step].querySelector(
+          '._message__content._writing'
+        );
+
+        let typed = new Typed(text, {
+          strings: [`${text.dataset.text}`],
+          typeSpeed: 10,
+          onComplete: (self) => {
+            writeLabel.style.display = 'none';
+
+            setTimeout(() => {
+              supportSend.classList.remove('_hidden');
+              supportScroller.scrollTo({ top: 1000000, behavior: 'smooth' });
+            }, 200);
+          },
+        });
+      }
+
+      if (step === 9) {
+        const text = supportMessages[step].querySelector(
+          '._message__content p'
+        );
+        const writeLabel = supportMessages[step].querySelector(
+          '._message__content._writing'
+        );
+
+        let typed = new Typed(text, {
+          strings: [`${text.dataset.text}`],
+          typeSpeed: 10,
+          onComplete: (self) => {
+            writeLabel.style.display = 'none';
+
+            setTimeout(() => {
+              supportScroller.scrollTo({ top: 1000000, behavior: 'smooth' });
+            }, 200);
+          },
+        });
+      }
+
+      if (step % 2 === 0 && step > 0 && step < 9) {
+        setTimeout(nextStep, 1000);
       }
 
       supportScroller.scrollTo({ top: 1000000, behavior: 'smooth' });
@@ -728,6 +993,7 @@ export const mobileSupportChat = () => {
       minDate: Date.now(),
       locale: Russian,
       inline: true,
+      dateFormat: 'd.m.Y',
 
       onValueUpdate: function (selectedDates, dateStr, instance) {
         if (selectedDates.length === 2) {
@@ -832,6 +1098,8 @@ export const homepageMainGuestPicker = () => {
 
       childBtn.addEventListener('click', () => {
         childElement.remove();
+        picker.querySelector('.main-guestpicker__content-add').style.display =
+          'block';
       });
 
       childElement.append(childName, childAge, childBtn);
@@ -861,9 +1129,16 @@ export const homepageMainGuestPicker = () => {
 
         containerAgesItem.addEventListener('click', (event) => {
           const { target } = event;
+          const childCount = picker.querySelectorAll('.child');
 
           addChild(target.innerText);
           container.remove();
+
+          if (childCount.length >= 3) {
+            picker.querySelector(
+              '.main-guestpicker__content-add'
+            ).style.display = 'none';
+          }
         });
       }
 
@@ -890,13 +1165,13 @@ export const homepageMainGuestPicker = () => {
     picker.addEventListener('mouseleave', () => togglePicker('close'));
     picker.addEventListener('click', (event) => {
       const { target } = event;
+      const childCount = picker.querySelectorAll('.child');
 
       if (target.closest('.main-guestpicker__content-add')) {
         if (!picker.querySelector('.main-guestpicker__content-age')) {
           selectChildAge(target.closest('.main-guestpicker__content-add'));
         }
       } else if (target.closest('#guest-picker-confirm')) {
-        const childCount = picker.querySelectorAll('.child');
         guestCount = +adultInput.value + +childCount.length;
         togglePicker();
 
@@ -990,6 +1265,8 @@ export const modalGuestPicker = () => {
 
       childBtn.addEventListener('click', () => {
         childElement.remove();
+        picker.querySelector('.modal-guestpicker__content-add').style.display =
+          'block';
       });
 
       childElement.append(childName, childAge, childBtn);
@@ -1018,9 +1295,16 @@ export const modalGuestPicker = () => {
 
         containerAgesItem.addEventListener('click', (event) => {
           const { target } = event;
+          const childCount = picker.querySelectorAll('.child');
 
           addChild(target.innerText);
           container.remove();
+
+          if (childCount.length >= 3) {
+            picker.querySelector(
+              '.modal-guestpicker__content-add '
+            ).style.display = 'none';
+          }
         });
       }
 
@@ -1237,6 +1521,8 @@ export const homepageModalWithDataGuestPicker = () => {
 
       childBtn.addEventListener('click', () => {
         childElement.remove();
+        picker.querySelector('.modal-guestpicker__content-add').style.display =
+          'block';
       });
 
       childElement.append(childName, childAge, childBtn);
@@ -1265,9 +1551,16 @@ export const homepageModalWithDataGuestPicker = () => {
 
         containerAgesItem.addEventListener('click', (event) => {
           const { target } = event;
+          const childCount = picker.querySelectorAll('.child');
 
           addChild(target.innerText);
           container.remove();
+
+          if (childCount.length >= 3) {
+            picker.querySelector(
+              '.modal-guestpicker__content-add'
+            ).style.display = 'none';
+          }
         });
       }
 
@@ -1350,7 +1643,7 @@ export const homepageModalWithDataRoomPicker = () => {
       },
     });
 
-    choices.setValue([{ value: 'One', label: 'Label One' }]);
+    // choices.setValue([{ value: 'One', label: 'Label One' }]);
   }
 };
 
@@ -1414,6 +1707,20 @@ export const homepageBooking = () => {
         setTimeout(() => {
           modalSuccess.classList.remove('active');
         }, 3000);
+        event.target.reset();
+
+        var form = $('#modal-body-form').serialize();
+        $.ajax({
+          url: location.href,
+          type: 'post',
+          data: form,
+          dataType: 'json',
+          success: function (response) {},
+          error: function () {
+            Jquery('.form-loader').removeClass('active');
+            console.log('error');
+          },
+        });
       });
 
     const element = document.querySelector(

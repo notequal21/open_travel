@@ -8,7 +8,7 @@ functions.upBtn();
 functions.homepageMainDataPicker();
 functions.homepageMainRoomPicker();
 functions.homepageMainGuestPicker();
-functions.modalRoomPicker();
+// functions.modalRoomPicker();
 functions.modalGuestPicker();
 functions.modal();
 functions.supportMain();

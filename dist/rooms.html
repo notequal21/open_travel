@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1, user-scalable=0">
-  <link rel="stylesheet" href="css/style.min.css?_v=20230608173721">
+  <link rel="stylesheet" href="css/style.min.css?_v=20230612221618">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 
   <!-- ios fix -->
@@ -37,10 +37,10 @@
       <label class="modal-body__form-item">
         <select class="modal-booking__item_select">
           <option value="">Выбрать номер</option>
-          <option value="1">Не определился</option>
-          <option value="2">Double 1-местный</option>
-          <option value="3">Double plus 2-местный</option>
-          <option value="4">Double plus 3-местный</option>
+          <option value="Не определился">Не определился</option>
+          <option value="Double 1-местный">Double 1-местный</option>
+          <option value="Double plus 2-местный">Double plus 2-местный</option>
+          <option value="Double plus 3-местный">Double plus 3-местный</option>
         </select>
       </label>
       <label class="modal-body__form-item">
@@ -252,10 +252,10 @@
 			<nav class="header-body__nav">
 				<ul>
 					<li>
-						<a href="#about">Описание</a>
+						<a href="./index.html">Описание</a>
 					</li>
 					<li>
-						<a href="#treatment">Лечение</a>
+						<a href="./index.html">Лечение</a>
 					</li>
 					<li>
 						<a href="./rooms.html">Номера</a>
@@ -392,19 +392,24 @@
         </div>
       </div>
 
-      <div data-step="1" class="_message _message_bot">
+      <div data-step="0" class="_message _message_bot">
         <div class="_message__name">
           Онлайн помощник
         </div>
         <div class="_message__content">
-          <p>
-            Здравствуйте! Я помогу Вам забронировать отдых в /название отеля/.
-            Выберите, пожалуйста, период поездки:
+          <p data-text="Здравствуйте! Я помогу Вам забронировать отдых в /название отеля/.
+          Выберите, пожалуйста, период поездки:">
+
           </p>
           <div class="_message__datapicker">
             <input id="support-datapicker" placeholder="Заезд - Выезд"
               class="main-booking__item main-booking__item_input" />
           </div>
+        </div>
+        <div class="_message__content _writing">
+          <p>
+            печатает...
+          </p>
         </div>
       </div>
       <div class="_message _message_user">
@@ -420,8 +425,8 @@
           Онлайн помощник
         </div>
         <div class="_message__content">
-          <p>
-            Укажите, пожалуйста, количество гостей
+          <p data-text="Укажите, пожалуйста, количество гостей">
+
           </p>
           <div class="_message__guestpicker">
             <div id="support-guestpicker-item" class="main-booking__item-guest main-guestpicker">
@@ -449,6 +454,11 @@
             </div>
           </div>
         </div>
+        <div class="_message__content _writing">
+          <p>
+            печатает...
+          </p>
+        </div>
       </div>
       <div class="_message _message_user">
         <div class="_message__name">
@@ -465,8 +475,13 @@
           Онлайн помощник
         </div>
         <div class="_message__content">
+          <p data-text="Укажите, Ваш номер телефона, для подтверждения данных">
+
+          </p>
+        </div>
+        <div class="_message__content _writing">
           <p>
-            Укажите, Ваш номер телефона, для подтверждения данных
+            печатает...
           </p>
         </div>
       </div>
@@ -485,8 +500,13 @@
           Онлайн помощник
         </div>
         <div class="_message__content">
+          <p data-text="Спасибо! Как к Вам можно обращаться?">
+
+          </p>
+        </div>
+        <div class="_message__content _writing">
           <p>
-            Спасибо! Как к Вам можно обращаться?
+            печатает...
           </p>
         </div>
       </div>
@@ -505,8 +525,14 @@
           Онлайн помощник
         </div>
         <div class="_message__content">
+          <p
+            data-text="Благодарим за обращение! В ближайшее время с вами свяжется менеджер для согласования данных по вашей брони">
+
+          </p>
+        </div>
+        <div class="_message__content _writing">
           <p>
-            Благодарим за обращение! В ближайшее время с вами свяжется менеджер для согласования данных по вашей брони
+            печатает...
           </p>
         </div>
       </div>
@@ -560,14 +586,19 @@
           Онлайн помощник
         </div>
         <div class="_message__content">
-          <p>
-            Здравствуйте! Я помогу Вам забронировать отдых в /название отеля/.
-            Выберите, пожалуйста, период поездки:
+          <p data-text="Здравствуйте! Я помогу Вам забронировать отдых в /название отеля/.
+          Выберите, пожалуйста, период поездки:">
+
           </p>
           <div class="_message__datapicker">
             <input id="support-datapicker" placeholder="Заезд - Выезд"
               class="main-booking__item main-booking__item_input" />
           </div>
+        </div>
+        <div class="_message__content _writing">
+          <p>
+            печатает...
+          </p>
         </div>
       </div>
       <div class="_message _message_user">
@@ -583,8 +614,8 @@
           Онлайн помощник
         </div>
         <div class="_message__content">
-          <p>
-            Укажите, пожалуйста, количество гостей
+          <p data-text="Укажите, пожалуйста, количество гостей">
+
           </p>
           <div class="_message__guestpicker">
             <div id="support-guestpicker-item-rooms" class="main-booking__item-guest main-guestpicker">
@@ -612,6 +643,11 @@
             </div>
           </div>
         </div>
+        <div class="_message__content _writing">
+          <p>
+            печатает...
+          </p>
+        </div>
       </div>
       <div class="_message _message_user">
         <div class="_message__name">
@@ -628,8 +664,13 @@
           Онлайн помощник
         </div>
         <div class="_message__content">
+          <p data-text="Укажите, Ваш номер телефона, для подтверждения данных">
+
+          </p>
+        </div>
+        <div class="_message__content _writing">
           <p>
-            Укажите, Ваш номер телефона, для подтверждения данных
+            печатает...
           </p>
         </div>
       </div>
@@ -648,8 +689,13 @@
           Онлайн помощник
         </div>
         <div class="_message__content">
+          <p data-text="Спасибо! Как к Вам можно обращаться?">
+
+          </p>
+        </div>
+        <div class="_message__content _writing">
           <p>
-            Спасибо! Как к Вам можно обращаться?
+            печатает...
           </p>
         </div>
       </div>
@@ -668,8 +714,13 @@
           Онлайн помощник
         </div>
         <div class="_message__content">
+          <p
+            data-text="Благодарим за обращение! В ближайшее время с вами свяжется менеджер для согласования данных по вашей брони">
+          </p>
+        </div>
+        <div class="_message__content _writing">
           <p>
-            Благодарим за обращение! В ближайшее время с вами свяжется менеджер для согласования данных по вашей брони
+            печатает...
           </p>
         </div>
       </div>
@@ -732,7 +783,7 @@
             </div>
           </div>
           <div class="_btns">
-            <div class="_btns__item btn modal_booking-btn">
+            <div data-value="Double plus 2-местный" class="_btns__item btn modal_booking-btn">
               БРОНИРОВАТЬ
             </div>
             <div class="_btns__item btn btn_border btn_blue">
@@ -787,7 +838,7 @@
             </div>
           </div>
           <div class="_btns">
-            <div class="_btns__item btn modal_booking-btn">
+            <div data-value="Double plus 2-местный" class="_btns__item btn modal_booking-btn">
               БРОНИРОВАТЬ
             </div>
             <div class="_btns__item btn btn_border btn_blue">
@@ -842,7 +893,7 @@
             </div>
           </div>
           <div class="_btns">
-            <div class="_btns__item btn modal_booking-btn">
+            <div data-value="Double plus 2-местный" class="_btns__item btn modal_booking-btn">
               БРОНИРОВАТЬ
             </div>
             <div class="_btns__item btn btn_border btn_blue">
@@ -897,7 +948,7 @@
             </div>
           </div>
           <div class="_btns">
-            <div class="_btns__item btn modal_booking-btn">
+            <div data-value="Double plus 2-местный" class="_btns__item btn modal_booking-btn">
               БРОНИРОВАТЬ
             </div>
             <div class="_btns__item btn btn_border btn_blue">
@@ -991,7 +1042,9 @@
 </footer>
   </div>
 
-  <script src="js/app.min.js?_v=20230608173721"></script>
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js?_v=20230612221618"
+  integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<script src="js/app.min.js?_v=20230612221618"></script>
 
 </body>
 

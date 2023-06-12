@@ -28,19 +28,24 @@
         </div>
       </div>
 
-      <div data-step="1" class="_message _message_bot">
+      <div data-step="0" class="_message _message_bot">
         <div class="_message__name">
           Онлайн помощник
         </div>
         <div class="_message__content">
-          <p>
-            Здравствуйте! Я помогу Вам забронировать отдых в /название отеля/.
-            Выберите, пожалуйста, период поездки:
+          <p data-text="Здравствуйте! Я помогу Вам забронировать отдых в /название отеля/.
+          Выберите, пожалуйста, период поездки:">
+
           </p>
           <div class="_message__datapicker">
             <input id="support-datapicker" placeholder="Заезд - Выезд"
               class="main-booking__item main-booking__item_input" />
           </div>
+        </div>
+        <div class="_message__content _writing">
+          <p>
+            печатает...
+          </p>
         </div>
       </div>
       <div class="_message _message_user">
@@ -56,8 +61,8 @@
           Онлайн помощник
         </div>
         <div class="_message__content">
-          <p>
-            Укажите, пожалуйста, количество гостей
+          <p data-text="Укажите, пожалуйста, количество гостей">
+
           </p>
           <div class="_message__guestpicker">
             <div id="support-guestpicker-item" class="main-booking__item-guest main-guestpicker">
@@ -85,6 +90,11 @@
             </div>
           </div>
         </div>
+        <div class="_message__content _writing">
+          <p>
+            печатает...
+          </p>
+        </div>
       </div>
       <div class="_message _message_user">
         <div class="_message__name">
@@ -101,8 +111,13 @@
           Онлайн помощник
         </div>
         <div class="_message__content">
+          <p data-text="Укажите, Ваш номер телефона, для подтверждения данных">
+
+          </p>
+        </div>
+        <div class="_message__content _writing">
           <p>
-            Укажите, Ваш номер телефона, для подтверждения данных
+            печатает...
           </p>
         </div>
       </div>
@@ -121,8 +136,13 @@
           Онлайн помощник
         </div>
         <div class="_message__content">
+          <p data-text="Спасибо! Как к Вам можно обращаться?">
+
+          </p>
+        </div>
+        <div class="_message__content _writing">
           <p>
-            Спасибо! Как к Вам можно обращаться?
+            печатает...
           </p>
         </div>
       </div>
@@ -141,8 +161,14 @@
           Онлайн помощник
         </div>
         <div class="_message__content">
+          <p
+            data-text="Благодарим за обращение! В ближайшее время с вами свяжется менеджер для согласования данных по вашей брони">
+
+          </p>
+        </div>
+        <div class="_message__content _writing">
           <p>
-            Благодарим за обращение! В ближайшее время с вами свяжется менеджер для согласования данных по вашей брони
+            печатает...
           </p>
         </div>
       </div>
