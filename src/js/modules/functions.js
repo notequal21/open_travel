@@ -131,7 +131,7 @@ export const modal = () => {
 
     let toggleModal = (e) => {
       e && e.preventDefault();
-      if (e.target.dataset.value) {
+      if (e && e.target.dataset.value) {
         choices.setChoiceByValue(e.target.dataset.value);
       }
 
