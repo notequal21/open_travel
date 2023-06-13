@@ -1,6 +1,8 @@
 import * as functions from './modules/functions.js';
 import * as sliders from './modules/sliders.js';
+import * as ymaps from './modules/ymaps.js';
 
+ymaps.ymapMain();
 functions.burger();
 functions.anchors();
 functions.openMoreMobile();
@@ -8,17 +10,12 @@ functions.upBtn();
 functions.homepageMainDataPicker();
 functions.homepageMainRoomPicker();
 functions.homepageMainGuestPicker();
-// functions.modalRoomPicker();
 functions.modalGuestPicker();
 functions.modal();
 functions.supportMain();
 functions.mobileSupportChat();
-// functions.supportDataPicker();
-// functions.supportGuestPicker();
 functions.supportRooms();
-// functions.homepageModalWithDataRoomPicker();
 functions.homepageModalWithDataGuestPicker();
-// functions.homepageSupportChat();
 functions.homepageBooking();
 sliders.homepageAboutInfoSlider();
 sliders.homepageAboutServicesSlider();
