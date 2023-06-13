@@ -622,7 +622,8 @@
             margin: 0;
           }
 
-          &.is-highlighted {
+          &.is-highlighted,
+          &.is-selected {
             background-color: transparent !important;
             color: #4293fb;
           }

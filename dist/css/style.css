@@ -1008,7 +1008,9 @@ h6 {
 }
 
 .modal-booking__item_select .choices__item.choices__item--choice.is-highlighted,
-.modal-booking__item_select_withdata .choices__item.choices__item--choice.is-highlighted {
+.modal-booking__item_select .choices__item.choices__item--choice.is-selected,
+.modal-booking__item_select_withdata .choices__item.choices__item--choice.is-highlighted,
+.modal-booking__item_select_withdata .choices__item.choices__item--choice.is-selected {
   background-color: transparent !important;
   color: #4293fb;
 }
@@ -1654,7 +1656,8 @@ h6 {
   margin: 0;
 }
 
-.main-booking__item_select .choices__item.choices__item--choice.is-highlighted {
+.main-booking__item_select .choices__item.choices__item--choice.is-highlighted,
+.main-booking__item_select .choices__item.choices__item--choice.is-selected {
   background-color: transparent !important;
   color: #4293fb;
 }
