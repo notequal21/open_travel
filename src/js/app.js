@@ -2,7 +2,7 @@ import * as functions from './modules/functions.js';
 import * as sliders from './modules/sliders.js';
 import * as ymaps from './modules/ymaps.js';
 
-// ymaps.ymapMain();
+ymaps.ymapMain();
 functions.burger();
 functions.anchors();
 functions.openMoreMobile();

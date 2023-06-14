@@ -50,8 +50,8 @@ export const anchors = () => {
           block: 'start',
         });
       } catch (error) {
-        if (anchor.getAttribute('href').split('#')[0] === './index.html') {
-          window.location.replace('./index.html');
+        if (anchor.getAttribute('href').split('#')[0] === './index.php') {
+          window.location.replace('./index.php');
         }
       }
     });
@@ -1405,10 +1405,29 @@ export const modalRoomPicker = () => {
 export const supportMain = () => {
   if (document.querySelector('.support_main')) {
     let chatWasOpened = false;
-    const primartBlock = document.querySelector('.about');
+    // const primartBlock = document.querySelector('.about');
+    const footer = document.querySelector('.footer');
     const support = document.querySelector('.support_main');
     const supportBg = support.querySelector('.support__bg');
     const btn = support.querySelector('.support-top');
+
+    const pinSupport = () => {
+      if (
+        document.querySelector('.wrapper').offsetHeight -
+          (window.scrollY + window.innerHeight) <=
+        footer.offsetHeight
+      ) {
+        support.style.position = 'absolute';
+        if (window.innerWidth < 991) {
+          support.style.bottom = '-75px';
+        } else {
+          support.style.bottom = '-110px';
+        }
+      } else {
+        support.style.position = 'fixed';
+        support.style.bottom = '100px';
+      }
+    };
 
     const toggleSupport = (type) => {
       if (!chatWasOpened) {
@@ -1418,10 +1437,10 @@ export const supportMain = () => {
 
       if (support.classList.contains('active')) {
         support.classList.remove('active');
-        primartBlock.classList.remove('active');
+        // primartBlock.classList.remove('active');
       } else {
         support.classList.add('active');
-        primartBlock.classList.add('active');
+        // primartBlock.classList.add('active');
       }
 
       if (type === 'close') {
@@ -1434,8 +1453,11 @@ export const supportMain = () => {
     btn.addEventListener('click', toggleSupport);
     supportBg.addEventListener('click', () => toggleSupport('close'));
 
+    window.addEventListener('scroll', pinSupport);
+
     setTimeout(() => {
       toggleSupport('open');
+      chatWasOpened = true;
     }, 5000);
   }
 };

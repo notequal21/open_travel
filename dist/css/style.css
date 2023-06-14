@@ -168,7 +168,9 @@ h6 {
 }
 
 .header {
-  position: relative;
+  position: fixed;
+  top: 0;
+  width: 100%;
   z-index: 10;
   background-color: #fff;
   border-bottom: 1px solid #c3d3e9;
@@ -4037,6 +4039,7 @@ body.lock {
 }
 
 .wrapper {
+  padding: 100px 0 0;
   min-height: 100%;
   overflow: hidden;
   display: flex;
@@ -4044,6 +4047,7 @@ body.lock {
 }
 
 .content {
+  position: relative;
   flex: 1 1 auto;
 }
 
@@ -4219,6 +4223,14 @@ body.lock {
   .rooms-body__item-text {
     padding: 40px 20px 24px;
   }
+
+  .container_support {
+    padding: 0;
+  }
+
+  .wrapper {
+    padding: 84px 0 0;
+  }
 }
 
 @media (max-width: 1100px) {
@@ -4256,7 +4268,7 @@ body.lock {
   }
 
   .footer {
-    margin: 60px 0 0;
+    margin: 80px 0 0;
     padding: 22px 0;
   }
 
