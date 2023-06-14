@@ -3,6 +3,10 @@
   z-index: 1;
   margin: 46px 0 0;
 
+  @media (max-width: 991px) {
+    z-index: 6;
+  }
+
   &.active {
     z-index: 15;
 
@@ -39,7 +43,7 @@
       position: relative;
       .support {
         display: block;
-        top: -95px;
+        // top: -95px;
       }
     }
 
@@ -52,7 +56,7 @@
 
       .support {
         display: block;
-        top: 44px;
+        // top: 44px;
       }
 
       @media (max-width: 991px) {

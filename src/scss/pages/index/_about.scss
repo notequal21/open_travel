@@ -116,13 +116,6 @@
       }
     }
 
-    .support {
-      top: 45px;
-      @media (max-width: 991px) {
-        top: -100px;
-      }
-    }
-
     &__title {
       @media (max-width: 991px) {
         padding: 0 15px;

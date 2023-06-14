@@ -25,18 +25,35 @@ export function isWebp() {
 // (gist - b47008824b0175d587f9acbc51892319)
 
 export const anchors = () => {
+  const header = document.querySelector('.header');
+  const headerNav = header.querySelector('.header-body__nav');
+  const headerBurger = header.querySelector('.header-body__burger');
+  const body = document.querySelector('body');
   const anchors = document.querySelectorAll('a[href*="#"]');
 
   for (let anchor of anchors) {
     anchor.addEventListener('click', function (e) {
       e.preventDefault();
 
-      const blockID = anchor.getAttribute('href').substr(1);
+      const blockID = anchor.getAttribute('href').split('#')[1];
 
-      document.getElementById(blockID).scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      });
+      if (header.classList.contains('active')) {
+        header.classList.remove('active');
+        headerNav.classList.remove('active');
+        headerBurger.classList.remove('active');
+        body.classList.remove('lock');
+      }
+
+      try {
+        document.getElementById(blockID).scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+      } catch (error) {
+        if (anchor.getAttribute('href').split('#')[0] === './index.html') {
+          window.location.replace('./index.html');
+        }
+      }
     });
   }
 };
@@ -105,11 +122,6 @@ export const modal = () => {
         },
       ])
       .addField('#modal-guestpicker-btn', [
-        {
-          rule: 'required',
-        },
-      ])
-      .addField('#modal-email-input', [
         {
           rule: 'required',
         },
@@ -1414,38 +1426,22 @@ export const supportMain = () => {
 
       if (type === 'close') {
         support.classList.remove('active');
+      } else if (type === 'open') {
+        support.classList.add('active');
       }
     };
 
     btn.addEventListener('click', toggleSupport);
     supportBg.addEventListener('click', () => toggleSupport('close'));
+
+    setTimeout(() => {
+      toggleSupport('open');
+    }, 5000);
   }
 };
 
 export const supportRooms = () => {
   if (document.querySelector('.support_rooms')) {
-    // const primartBlock = document.querySelector('.rooms');
-    // const support = document.querySelector('.support_rooms');
-    // const supportBg = support.querySelector('.support__bg');
-    // const btn = support.querySelector('.support-top');
-
-    // const toggleSupport = (type) => {
-    //   if (support.classList.contains('active')) {
-    //     support.classList.remove('active');
-    //     primartBlock.classList.remove('active');
-    //   } else {
-    //     support.classList.add('active');
-    //     primartBlock.classList.add('active');
-    //   }
-
-    //   if (type === 'close') {
-    //     support.classList.remove('active');
-    //   }
-    // };
-
-    // btn.addEventListener('click', toggleSupport);
-    // supportBg.addEventListener('click', () => toggleSupport('close'));
-
     let chatWasOpened = false;
     const primartBlock = document.querySelector('.rooms');
     const support = document.querySelector('.support_rooms');
@@ -1468,11 +1464,17 @@ export const supportRooms = () => {
 
       if (type === 'close') {
         support.classList.remove('active');
+      } else if (type === 'open') {
+        support.classList.add('active');
       }
     };
 
     btn.addEventListener('click', toggleSupport);
     supportBg.addEventListener('click', () => toggleSupport('close'));
+
+    setTimeout(() => {
+      toggleSupport('open');
+    }, 5000);
   }
 };
 
@@ -1686,11 +1688,6 @@ export const homepageBooking = () => {
         },
       ])
       .addField('#modal-guestpicker-item-withdata-btn', [
-        {
-          rule: 'required',
-        },
-      ])
-      .addField('#homepage-main-email-input', [
         {
           rule: 'required',
         },
