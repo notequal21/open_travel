@@ -1245,6 +1245,22 @@ h6 {
   color: #494545;
 }
 
+.support-content__send input._err {
+  color: rgb(255, 82, 82);
+}
+
+.support-content__send input._err::-moz-placeholder {
+  color: rgb(255, 82, 82);
+}
+
+.support-content__send input._err:-ms-input-placeholder {
+  color: rgb(255, 82, 82);
+}
+
+.support-content__send input._err::placeholder {
+  color: rgb(255, 82, 82);
+}
+
 .support-content__send input::-moz-placeholder {
   color: #c3d3e9;
 }

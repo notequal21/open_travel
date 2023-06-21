@@ -401,14 +401,27 @@ export const homepageSupportChat = () => {
       const { target } = event;
 
       if (step === 5) {
-        supportPhonePicked.innerText = target.querySelector('input').value;
+        if (target.querySelector('input').value.length > 2) {
+          supportPhonePicked.innerText = target.querySelector('input').value;
+          nextStep();
+          target.querySelector('input').value = '';
+          target.querySelector('input').classList.remove('_err');
+        } else {
+          target.querySelector('input').classList.add('_err');
+        }
+      } else if (step === 7) {
+        if (target.querySelector('input').value.length > 2) {
+          supportNamePicked.innerText = target.querySelector('input').value;
+          nextStep();
+          target.querySelector('input').value = '';
+          target.querySelector('input').classList.remove('_err');
+        } else {
+          target.querySelector('input').classList.add('_err');
+        }
+      } else {
+        nextStep();
+        target.querySelector('input').value = '';
       }
-      if (step === 7) {
-        supportNamePicked.innerText = target.querySelector('input').value;
-      }
-
-      nextStep();
-      target.querySelector('input').value = '';
     });
 
     const nextStep = (num) => {

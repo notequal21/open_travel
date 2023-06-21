@@ -228,6 +228,14 @@
         line-height: 24px;
         color: #494545;
 
+        &._err {
+          color: rgb(255, 82, 82);
+
+          &::placeholder {
+            color: rgb(255, 82, 82);
+          }
+        }
+
         &::placeholder {
           color: #c3d3e9;
         }
