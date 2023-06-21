@@ -99,6 +99,7 @@ export const modal = () => {
       searchEnabled: false,
       itemSelectText: '',
       removeItemButton: true,
+      shouldSort: false,
       classNames: {
         containerOuter: 'choices main-booking__item modal-booking__item_select',
       },
@@ -1381,6 +1382,7 @@ export const homepageMainRoomPicker = () => {
       searchEnabled: false,
       removeItemButton: true,
       itemSelectText: '',
+      shouldSort: false,
       classNames: {
         containerOuter: 'choices main-booking__item main-booking__item_select',
       },
@@ -1395,6 +1397,7 @@ export const modalRoomPicker = () => {
       searchEnabled: false,
       itemSelectText: '',
       removeItemButton: true,
+      shouldSort: false,
       classNames: {
         containerOuter: 'choices main-booking__item modal-booking__item_select',
       },
@@ -1661,6 +1664,7 @@ export const homepageModalWithDataRoomPicker = () => {
       searchEnabled: false,
       itemSelectText: '',
       removeItemButton: true,
+      shouldSort: false,
       classNames: {
         containerOuter:
           'choices main-booking__item modal-booking__item_select_withdata',
@@ -1749,6 +1753,7 @@ export const homepageBooking = () => {
       searchEnabled: false,
       itemSelectText: '',
       removeItemButton: true,
+      shouldSort: false,
       classNames: {
         containerOuter:
           'choices main-booking__item modal-booking__item_select_withdata',
