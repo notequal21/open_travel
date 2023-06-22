@@ -13,6 +13,7 @@ functions.homepageMainGuestPicker();
 functions.modalGuestPicker();
 functions.modal();
 functions.supportMain();
+functions.modalSuccessClose();
 // functions.mobileSupportChat();
 // functions.supportRooms();
 functions.homepageModalWithDataGuestPicker();

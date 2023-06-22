@@ -83,6 +83,17 @@ export const burger = () => {
   }
 };
 
+export const modalSuccessClose = () => {
+if (document.querySelector('.modal_success')) {
+  const modalSuccess = document.querySelector('.modal_success');
+  const modalSuccessCloseBtn = modalSuccess.querySelector('.modal-body__close');
+
+  modalSuccessCloseBtn.addEventListener('click', () => {
+    modalSuccess.classList.remove('active')
+  })
+}
+}
+
 export const modal = () => {
   if (document.querySelector('.modal_booking')) {
     const openBtn = document.querySelectorAll('.modal_booking-btn');
