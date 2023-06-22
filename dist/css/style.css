@@ -1428,6 +1428,19 @@ h6 {
   align-items: center;
   position: relative;
   height: 342px;
+  position: relative;
+}
+
+.main-body__img::before {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(24, 30, 37, 0.4);
 }
 
 .main-body__img._desctop-visible {
@@ -1444,6 +1457,8 @@ h6 {
 }
 
 .main-body__img-text {
+  position: relative;
+  z-index: 1;
   font-family: "Roboto Slab";
   font-weight: 500;
   font-size: 32px;
@@ -1457,6 +1472,8 @@ h6 {
 }
 
 .main-body__img-btn {
+  position: relative;
+  z-index: 1;
   margin: 32px 0 0;
 }
 
